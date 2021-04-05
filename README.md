@@ -1,24 +1,48 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# アプリ名
+OIEM_app (Order Invoice Easy Management)
 
-Things you may want to cover:
+# 概要
+フリマアプリ、メルカリなどで出品しているユーザーの商品ことにコスト管理、発注先管理、インボイスが簡単に生成できて、管理できる。
 
-* Ruby version
+# 本番環境
+未定
 
-* System dependencies
+# 制作背景(意図)
+ツージョブが一般的になっている現在、フリマアプリへの商品を出品して販売するのは、ハードルが低いため、簡単に副業として参加できる。出品している商品を増やすと商品の発注管理（どの商品はどこからいくらで仕入れしているか）、外国からの輸入の場合、インボイスも毎回作成しないといけない。こちらの作業を一つのアプリで管理できる。
+- 商品登録する際に、仕入れ価格、送料を登録することで、コスト管理ができる
+- 商品登録する際、仕入れ先を登録することで、再度発注する際に簡単に発注できる。
+- 毎回の発注履歴が残り、いつ何を何個仕入れしているか確認できる。
+- 海外からの仕入れの場合、簡単にインボイスが生成され、毎回生成されているインボイスがデータベースに保存されて、確認することができる。
 
-* Configuration
+# DB設計
+## users
 
-* Database creation
+|Column              |Type   |Options                  |
+|--------------------|-------|-------------------------|
+|email               |sting  |null: false, unique: true|
+|encrypted_password  |sting  |null: false              |
+|nickname            |sting  |null: false              |
+|first_name          |sting  |null: false              |
+|last_name           |sting  |null: false              |
+|first_name_reading  |sting  |null: false              |
+|last_name_reading   |sting  |null: false              |
+|birthday            |date   |null: false              |
+### Association
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## items
+|Column           |Type           |Options             |
+|-----------------|---------------|-----------         |
+|jp_name             |sting          |null: false      |
+|eng_name            |sting          |null: false     |
+|jp_material             |sting          |null: false     |
+|eng_material            |sting          |null: false     |
+|manufacture_name        |sting          |null: false     |
+|item_selection        |sting          |null: false     |
+|manufacture_item_selection        |sting          |null: false     |
+|manufacture_url        |sting          |null: false     |
+|price            |integer        |null: false      |
+|weight           |text           |null: false      |
+|user             |references     |foreign_key: true|
