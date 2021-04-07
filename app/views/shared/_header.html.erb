@@ -1,16 +1,42 @@
 <%# CSS・・・assets/stylesheets/shared/header.css %>
 <header class='top-page-header'>
-  <div class='top-bar-contents'>
-    <%= link_to image_tag("furima-logo-color.png", class:"furima-icon"), "/" %>
+  <div class='search-bar-contents'>
+    <%= link_to image_tag("oiem-logo-color.png", class:"furima-icon"), "/" %>
+    <ul class="nav justify-content-end">
+      <% if user_signed_in?%>
+      <li class="nav-item">
+        <%= link_to '商品一覧', "#", class: "nav-link active" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to '商品登録', "#", class: "nav-link active" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to '発注履歴確認', "#", class: "nav-link active" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'インボイス履歴確認', "#", class: "nav-link active" %>
+      </li>
+      <% end %>
+    </ul>
   </div>
-  <div class='top-bar-right-list'>
+  <div class='nav'>
+    <div class='lists-left'>Order Invoise Easy Management
+    </div>
     <ul class='lists-right'>
       <% if user_signed_in?%>
-        <li><%= link_to current_user.nickname, "#", class: "user-nickname" %></li>
-        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></li>
+        <li class="nav-item">
+          <%= link_to current_user.nickname, user_path(current_user.id), class: "nav-link active" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link active" %>
+        </li>
       <% else %>
-        <li><%= link_to 'ログイン', new_user_session_path, class: "login" %></li>
-        <li><%= link_to '新規登録', new_user_registration_path, class: "sign-up" %></li>
+        <li class="nav-item">
+          <%= link_to 'ログイン', new_user_session_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to '新規登録', new_user_registration_path, class: "nav-link active" %>
+        </li>
       <% end %>
     </ul>
   </div>

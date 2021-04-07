@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'managements/index'
+  resources :umanagements, only: :index
   devise_for :users
   root to: "managements#index"
+  resources :users, only: :show
 end
