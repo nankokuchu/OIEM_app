@@ -1,0 +1,66 @@
+<%= render "shared/header" %>
+
+<%= form_with url: search_items_path, local: true, method: :get, class:'search-form' do |f| %>
+  <%= f.text_field :keyword, placeholder: "キーワードから商品を探す", class: "input-box" %>
+  <button class="search-button">
+    <%= image_tag "search.png", class:"search-icon" %>
+  </button>
+<% end %>
+
+<div class='main'>
+  <div class='item-contents'>
+    <h2 class='title'>登録している商品の一覧</h2>課題：表示の仕方,カゴボタン追加、在庫数追加
+    <ul class='item-lists'>
+      <% @display_items.each do |item| %>
+        <li class='list'>
+          <%= link_to item_path(item.id) do %>
+          <div class='item-img-content'>
+            <%= image_tag item.image, class: "item-img" %>
+          </div>
+            <div class='item-info'>
+              <h3 class='item-name'>
+                <%= item.jp_name %>
+              </h3>
+              <div class='item-price'>
+                <span>仕入価格：<%= item.purchase_price %>円</span>
+              </div>
+              <div class='item-price'>
+                <span>在庫数：<%= item.stock_quantity %></span>
+              </div>
+              <div class='item-price'>
+                <span>発注基準値：<%= item.stock_standard %></span>
+              </div>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class='item-contents'>
+  <% if @hiden_items.present? %>
+    <h2 class='title'>非表示商品の一覧</h2>
+    <ul class='item-lists'>
+      <% @hiden_items.each do |item| %>
+        <li class='list'>
+          <%= link_to item_path(item.id) do %>
+          <div class='item-img-content'>
+            <%= image_tag item.image, class: "item-img" %>
+          </div>
+            <div class='item-info'>
+              <h3 class='item-name'>
+                <%= item.jp_name %>
+              </h3>
+              <div class='item-price'>
+                <span><%= item.purchase_price %>円</span>
+              </div>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+</div>
+
+

@@ -1,0 +1,209 @@
+<div class="items-sell-contents">
+  <header class="items-sell-header">
+    <%= link_to image_tag('oiem-logo-color.png' , size: '185x50'), "/" %>
+  </header>
+
+  <h1>課題:コスト計算部分を部分テンプレートにする<h1>
+
+  <div class="items-sell-main">
+    <h2 class="items-sell-title">商品の情報を入力</h2>
+    <%= form_with model: @item, local: true do |f| %>
+
+    <%= render 'shared/error_messages', model: f.object %> 
+
+    <%# 出品画像 %>
+    <div class="img-upload">
+      <div class="weight-bold-text">
+        出品画像
+        <span class="indispensable">必須</span>
+      </div>
+      <div class="click-upload">
+        <p>
+          クリックしてファイルをアップロード
+        </p>
+        <%= f.file_field :image, id:"item-image" %>
+      </div>
+    </div>
+    <%# /出品画像 %>
+    <%# 商品名と商品説明 %>
+    <div class="new-items">
+      <div class="weight-bold-text">
+        【日本語】商品名
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_area :jp_name, class:"items-text", id:"item-jp_name", placeholder:"日本語の商品名（必須 40文字まで)(商品検索する際に利用します)", maxlength:"40" %>
+      <div class="weight-bold-text">
+        【英語】商品名
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_area :eng_name, class:"items-text", id:"item-eng_name", placeholder:"英語の商品名（必須 40文字まで)(インボイス作成する際に利用します)", maxlength:"40" %>
+    </div>
+    <%# /商品名と商品説明 %>
+
+    <%# 商品の詳細 %>
+    <div class="items-detail">
+      <div class="weight-bold-text">商品詳細</div>
+      <div class="form">
+        <div class="weight-bold-text">
+          商品材質
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :jp_material, class:"select-box", id:"item-jp_material", placeholder:"日本語の商品材質", maxlength:"10" %>
+        <%= f.text_field :eng_material, class:"select-box", id:"item-eng_material", placeholder:"英語の商品材質", maxlength:"20" %>
+        <div class="weight-bold-text">
+          商品重量(kg)
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :weight, class:"select-box", id:"item-weight", placeholder:"商品重量）単位kg", maxlength:"10" %>
+        <div class="weight-bold-text">
+          仕入メーカー名
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :manufacture_name, class:"select-box", id:"item-manufacture_name", placeholder:"仕入メーカー名", maxlength:"10" %>
+        <div class="weight-bold-text">
+          仕入商品URL
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :manufacture_url, class:"select-box", id:"item-manufacture_url", placeholder:"仕入商品URLを貼り付けてください", maxlength:"100" %>
+        <div class="weight-bold-text">
+          商品項目選択肢
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :item_selection, class:"select-box", id:"item-item_selection", placeholder:"商品項目選択肢", maxlength:"10" %>
+        <%= f.text_field :manufacture_item_selection, class:"select-box", id:"item-item_selection", placeholder:"メーカー商品項目選択肢", maxlength:"20" %>
+        <%= f.text_field :items_status_id, type: "hidden", value: 1 %>
+        <%= f.text_field :order_status_id, type: "hidden", value: 1 %>
+        <div class="weight-bold-text">
+          在庫数
+            <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :stock_quantity, class:"select-box", id:"item-stock-quantity", placeholder:"在庫数を入力してください。", maxlength:"10" %>
+        <div class="weight-bold-text">
+          在庫通知基準個数
+            <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :stock_standard, class:"select-box", id:"item-stock-standard", placeholder:"発注通知個数を入力してください", maxlength:"10" %>
+      </div>
+    </div>
+    <%# /商品の詳細 %>
+
+
+    <%# 販売価格 %>
+    <div class="sell-price">
+      <div class="weight-bold-text question-text">
+        <span>商品価格</span>
+        <a class="question" href="#">?</a>
+      </div>
+      <div>
+
+        <div class="price-content">
+          <div class="price-text">
+            <span>メーカー価格</span>
+          </div>
+          <span class="sell-yen">¥</span>
+          <%= f.text_field :ppurchase_price, class:"price-input", id:"item-ppurchase_price", placeholder:"例）300" %>
+        </div>
+
+        <div class="price-content">
+          <span>為替レート</span>
+          <span>
+            <span id='add-tax-price'></span>
+          </span>
+            <%= f.collection_select(:ratehoge, ExchangeRate.all, :rate, :exchange, {class:"select-box", id:"item-exchange-rate"}) %>
+        </div>
+
+        <div class="price-content">
+          <span>メーカー送料</span>
+          <span>
+            <span id='add-tax-price'></span>
+          </span>
+          <%= f.collection_select(:overseahoge, OverseaFeedEmsShip.all, :price, :name, {class:"select-box", id:"item-oversea-feed"}) %>
+        </div>
+
+        <div class="price-content">
+          <span>販売送料</span>
+          <span>
+            <span id='add-tax-price'></span>
+          </span>
+          <%= f.collection_select(:domestichoge, DomesticFeed.all, :price, :name, {class:"select-box", id:"item-domestic-feed"}) %>
+        </div>
+
+        <div class="price-content">
+          <div class="price-text">
+            <span>仕入価格</span>
+            <span class="indispensable">必須</span>
+          </div>
+          <span class="sell-yen">¥</span>
+          <%= f.text_field :purchase_price, class:"price-input", id:"item-purchase_price", placeholder:"自動計算されます" %>
+        </div>
+
+        <div class="price-content">
+          <span>販売手数料率</span>
+          <span>
+            <span id='add-tax-price'></span>
+          </span>
+          <%= f.collection_select(:commissionhoge, Commission.all, :percent, :name, {class:"select-box", id:"item-commission"}) %>
+        </div>
+
+        <div class="price-content">
+          <div class="price-text">
+            <span>販売価格</span>
+            <span class="indispensable">必須</span>
+          </div>
+          <span class="sell-yen">¥</span>
+          <%= f.text_field :selling_price, class:"price-input", id:"item-selling_price", placeholder:"例）300" %>
+        </div>
+        
+        <div class="price-content">
+          <span>販売手数料</span>
+          <span>
+            <span id='price-text'></span>円
+        </div>
+
+        <div class="price-content">
+          <span>販売利益</span>
+          <span>
+            <span id='profit'></span>円
+        </div>
+
+        <div class="price-content">
+          <span>利益率</span>
+          <span>
+            <span id='profit-percent'></span>％
+        </div>
+        </span>
+      </div>
+    </div>
+    <%# /販売価格 %>
+
+    <%# 注意書き %>
+    <div class="caution">
+      <button type="button" class="btn btn-danger">注意</button>
+      <p class="sentence">
+        為替レートはOIEMで提供している参考為替レートです。
+      </p>
+      <p class="sentence">
+        メーカー送料及び販売送料は商品重量とサイズによって概算した送料であり、実際の発生する送料ではないですので、ご注意ください。
+      </p>
+    </div>
+    <%# /注意書き %>
+    <%# 下部ボタン %>
+    <div class="sell-btn-contents">
+      <%= f.submit "商品を登録する" ,class:"sell-btn" %>
+      <%=link_to 'もどる', root_path, class:"back-btn" %>
+    </div>
+    <%# /下部ボタン %>
+  </div>
+  <% end %>
+
+  <footer class="items-sell-footer">
+    <ul class="menu">
+      <li><a href="#">プライバシーポリシー</a></li>
+      <li><a href="#">OIEM利用規約</a></li>
+    </ul>
+    <%= link_to image_tag('oiem-logo-color.png' , size: '185x50'), "/" %>
+    <p class="inc">
+      ©︎OIEM,Inc.
+    </p>
+  </footer>
+</div>

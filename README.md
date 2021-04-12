@@ -30,19 +30,23 @@ OIEM_app (Order Invoice Easy Management)
 |last_name_reading   |sting  |null: false              |
 |birthday            |date   |null: false              |
 ### Association
+- has_many :items
 
 
 ## items
-|Column           |Type           |Options             |
-|-----------------|---------------|-----------         |
-|jp_name             |sting          |null: false      |
-|eng_name            |sting          |null: false     |
-|jp_material             |sting          |null: false     |
-|eng_material            |sting          |null: false     |
-|manufacture_name        |sting          |null: false     |
-|item_selection        |sting          |null: false     |
-|manufacture_item_selection        |sting          |null: false     |
-|manufacture_url        |sting          |null: false     |
-|price            |integer        |null: false      |
-|weight           |text           |null: false      |
-|user             |references     |foreign_key: true|
+|Column                     |Type       |Options           |
+|---------------------------|-----------|------------------|
+|eng_name                   |string     |null: false       |
+|jp_name                    |string     |null: false       |
+|jp_material                |string     |null: false       |
+|eng_material               |string     |null: false       |
+|manufacture_name           |string     |null: false       |
+|item_selection             |string     |null: false       |
+|manufacture_item_selection |string     |null: false       |
+|manufacture_url            |string     |null: false       |
+|selling_price              |integer    |null: false       |
+|purchase_price             |integer    |null: false       |
+|weight                     |string     |null: false       |
+|user                       |references |foreign_key: true |
+### Association
+- belongs_to :user

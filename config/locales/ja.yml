@@ -8,3 +8,16 @@ ja:
        last_name: 名字
        first_name_reading: 名前のカタカナ
        last_name_reading: 名字のカタカナ
+     item:
+       eng_name: 【英語】商品名
+       jp_name: 【日本語】商品名
+       jp_material: 日本語の商品材質
+       eng_material: 英語の商品材質
+       manufacture_name: 仕入先メーカー名
+       item_selection: 商品項目選択肢
+       manufacture_item_selection: メーカー商品項目選択肢
+       manufacture_url: 仕入商品URL
+       selling_price: 販売価格
+       purchase_price: 仕入価格
+       weight: 商品重量
+       image: 商品画像

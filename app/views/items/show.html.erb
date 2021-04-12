@@ -1,0 +1,79 @@
+<%= render "shared/header" %>
+
+<%# 商品の概要 %>
+<div class="item-show">
+  <div class="item-box">
+    <div class="item-img-content">
+      <%= image_tag @item.image ,class:"item-box-img" %>
+    </div>
+
+    <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
+    <%= link_to "発注カゴに入れる", "#" ,class:"item-red-btn"%>
+
+    <div class="item-explain-box">
+      <span><%= "商品詳細" %></span>
+    </div>
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th class="detail-item">商品名【日本語】</th>
+          <td class="detail-value"><%= @item.jp_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品名【英語】</th>
+          <td class="detail-value"><%= @item.eng_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品仕入価格</th>
+          <td class="detail-value"><%= @item.purchase_price %>円</td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品販売価格</th>
+          <td class="detail-value"><%= @item.selling_price %>円</td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品の状態</th>
+          <td class="detail-value"><%= @item.items_status.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品材質【日本語】</th>
+          <td class="detail-value"><%= @item.jp_material %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品材質【英語】</th>
+          <td class="detail-value"><%= @item.eng_material %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品在庫数</th>
+          <td class="detail-value"><%= @item.stock_quantity %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品発注基準値</th>
+          <td class="detail-value"><%= @item.stock_standard %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">仕入先名(メーカー名)</th>
+          <td class="detail-value"><%= @item.manufacture_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">仕入先商品購入ページ</th>
+          <td class="detail-value">
+          <%= link_to '仕入先商品購入ページ', @item.manufacture_url, :target=>["_blank"] %>
+          </td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品項目選択肢</th>
+          <td class="detail-value"><%= @item.item_selection %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">メーカー商品項目選択肢</th>
+          <td class="detail-value"><%= @item.manufacture_item_selection %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品重量</th>
+          <td class="detail-value"><%= @item.weight %>kg</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <%# /商品の概要 %>

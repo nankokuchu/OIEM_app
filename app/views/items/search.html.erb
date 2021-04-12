@@ -1,0 +1,34 @@
+<%= render "shared/header" %>
+
+<%= form_with url: search_items_path, local: true, method: :get, class:'search-form' do |f| %>
+  <%= f.text_field :keyword, placeholder: "キーワードから商品を探す", class: "input-box" %>
+  <button class="search-button">
+    <%= image_tag "search.png", class:"search-icon" %>
+  </button>
+<% end %>
+
+<div class='main'>
+  <div class='item-contents'>
+    <ul class='item-lists'>
+      <% @user_items.each do |item| %>
+        <li class='list'>
+          <%= link_to item_path(item.id) do %>
+          <div class='item-img-content'>
+            <%= image_tag item.image, class: "item-img" %>
+          </div>
+            <div class='item-info'>
+              <h3 class='item-name'>
+                <%= item.jp_name %>
+              </h3>
+              <div class='item-price'>
+                <span>仕入価格：<%= item.purchase_price %>円</span>
+              </div>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+
