@@ -1,0 +1,104 @@
+<%= render "shared/header" %>
+<div class="container ">
+<div class="container ">
+    <div class="item-img-content d-flex justify-content-center">
+      <%= image_tag @item.image ,class:"item-box-img" %>
+    </div>
+</div>
+<div class="container">
+<div class="item-explain-box d-flex justify-content-center">
+      <span><%= "発注詳細" %></span>
+    </div>
+<table class="detail-table">
+      <tbody>
+        <tr>
+          <th class="detail-item">発注数</th>
+          <td class="detail-value"><%= @item.jp_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">発注金額</th>
+          <td class="detail-value"><%= @item.purchase_price %>円</td>
+        </tr>
+        <tr>
+          <th class="detail-item">メーカー発注番号</th>
+          <td class="detail-value"><%= @item.stock_quantity %></td>
+        </tr>
+      </tbody>
+  </table>
+  </div>
+
+
+  <div class="container border border-primary">
+  <% unless @order.tracking_number.present? %>
+    <div class="container mt-2">
+      <div class="p-3 mb-2 bg-danger text-white font-weight-bold text-center ">
+        現在、追跡番号を登録されていません！！
+      </div>
+      <div class="container">
+        <%= form_with model: @tracking_number, url: order_tracking_numbers_path, method: :post, local: true do |f| %>
+        <%= render 'shared/error_messages', model: f.object %> 
+        <div class="container tracking-container d-flex justify-content-center mb-3 mt-5">
+          <%= f.text_field :number, class:"tracking-form-control form-control form-control-lg", id:"order-tracking-number", placeholder:"追跡番号を貼り付けてください" %>
+          <%= f.submit "登録/編集する", class:"tracking-btn btn btn-success ml-5" %>
+        </div>
+        <% end %>
+      </div>  
+    </div>
+    <% else %>
+    <div class="container mt-2">
+      <div class="p-3 mb-2 bg-danger text-white font-weight-bold text-center ">
+        現在、登録している追跡番号は！！
+      </div>
+      <div class="container">
+      <%= form_with model: @tracking_number, url: tracking_number_path(@tracking_number.id), method: :patch, local: true do |f| %>
+      <%= render 'shared/error_messages', model: f.object %> 
+      <div class="container tracking-container d-flex justify-content-center mb-3 mt-5">
+          <%= f.text_field :number, class:"tracking-form-control form-control form-control-lg", id:"order-tracking-number", placeholder:"追跡番号を貼り付けてください" %>
+          <%= f.text_field :order_id, type: "hidden", value: @order.id %>
+          <%= f.submit "登録/編集する", class:"tracking-btn btn btn-success ml-5" %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+
+
+
+
+<div class="container">
+    <div class="item-explain-box d-flex justify-content-center">
+      <span><%= "商品詳細" %></span>
+    </div>
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th class="detail-item">商品名【日本語】</th>
+          <td class="detail-value"><%= @item.jp_name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品仕入価格</th>
+          <td class="detail-value"><%= @item.purchase_price %>円</td>
+        </tr>
+        <tr>
+          <th class="detail-item">商品在庫数</th>
+          <td class="detail-value"><%= @item.stock_quantity %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">仕入先商品購入ページ</th>
+          <td class="detail-value">
+          <%= link_to '仕入先商品購入ページ', @item.manufacture_url, :target=>["_blank"] %>
+          </td>
+        <tr>
+          <th class="detail-item">商品項目選択肢</th>
+          <td class="detail-value"><%= @item.item_selection %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">メーカー商品項目選択肢</th>
+          <td class="detail-value"><%= @item.manufacture_item_selection %></td>
+        </tr>
+      </tbody>
+  </table>
+  </div>
+  </div>

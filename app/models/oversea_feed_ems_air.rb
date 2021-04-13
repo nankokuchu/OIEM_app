@@ -1,5 +1,4 @@
 class OverseaFeedEmsAir < ActiveHash::Base
-
   self.data = [
     { price: 0, name: '---' },
     { price: 90, name: '貨物総重量1kg(EMSエア便)' },
@@ -31,6 +30,6 @@ class OverseaFeedEmsAir < ActiveHash::Base
     { price: 540, name: '貨物総重量27kg(EMSエア便)' },
     { price: 560, name: '貨物総重量28kg(EMSエア便)' },
     { price: 580, name: '貨物総重量29kg(EMSエア便)' },
-    { price: 600, name: '貨物総重量30kg(EMSエア便)' },
+    { price: 600, name: '貨物総重量30kg(EMSエア便)' }
   ]
 end

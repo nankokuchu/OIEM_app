@@ -8,7 +8,7 @@
     </div>
 
     <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
-    <%= link_to "発注カゴに入れる", "#" ,class:"item-red-btn"%>
+    <%= link_to "商品を発注する", new_item_order_path(@item.id) ,class:"item-red-btn"%>
 
     <div class="item-explain-box">
       <span><%= "商品詳細" %></span>
@@ -22,6 +22,10 @@
         <tr>
           <th class="detail-item">商品名【英語】</th>
           <td class="detail-value"><%= @item.eng_name %></td>
+        </tr>
+                <tr>
+          <th class="detail-item">メーカー販売価格</th>
+          <td class="detail-value"><%= @item.ppurchase_price %>元(中国人民元)</td>
         </tr>
         <tr>
           <th class="detail-item">商品仕入価格</th>

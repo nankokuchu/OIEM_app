@@ -28,11 +28,10 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @item.valid?
-      @item.update(item_params)
+    if @item.update(item_params)
       redirect_to item_path(@item.id)
     else
-      render :new
+      render :edit
     end
   end
 
@@ -48,9 +47,9 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:image, :eng_name, :jp_name, :jp_material, :eng_material, 
+    params.require(:item).permit(:image, :eng_name, :jp_name, :jp_material, :eng_material,
                                  :manufacture_name, :item_selection, :manufacture_item_selection,
-                                 :manufacture_url, :selling_price, :purchase_price, :weight,
+                                 :manufacture_url, :selling_price, :ppurchase_price, :purchase_price, :weight,
                                  :items_status_id, :order_status_id, :stock_quantity, :stock_standard).merge(user_id: current_user.id)
   end
 
@@ -60,12 +59,11 @@ class ItemsController < ApplicationController
 
   def set_index_item
     @display_items = Item.where(items_status_id: 1, user_id: current_user.id)
+    @order_items = Item.where(items_status_id: 1, user_id: current_user.id, order_status_id: 2)
     @hiden_items = Item.where(items_status_id: 2, user_id: current_user.id)
   end
 
   def move_to_index
-    if current_user.id != @item.user.id
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id != @item.user.id
   end
 end

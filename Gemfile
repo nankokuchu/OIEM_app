@@ -34,6 +34,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rubocop', require: false
 end
 
 group :development do
@@ -63,3 +64,4 @@ gem 'active_hash'
 gem 'gon'
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
+gem 'gretel'

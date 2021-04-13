@@ -262,16 +262,16 @@ a {
 
 .sold-out {
   position: absolute;
-  top: 40%;
+  top: 65%;
   width: 100%;
   text-align: center;
   background-color: crimson;
-  transform: skewY(-10deg);
+  transform: skewY
 }
 
 .sold-out>span {
   color: #FFF;
-  font-size: 45px;
+  font-size: 20px;
   font: bold;
 }
 

@@ -1,0 +1,44 @@
+<% breadcrumb :orders %>
+<%= render "shared/header" %>
+<%= render "shared/order_list" %>
+
+<div class="container">
+  <div class="container">
+    <table class="table table-striped">
+      <thead class="bg-primary">
+        <tr>
+          <th scope="col">発注日付</th>
+          <th scope="col">商品イメージ</th>
+          <th scope="col">商品名</th>
+          <th scope="col">発注詳細</th>
+          <th scope="col">メーカー発注番号</th>
+          <th scope="col">発注個数</th>
+          <th scope="col">発注金額</th>
+            <th scope="col">メーカー追跡番号</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @new_orders.each do |order|%>
+          <% unless order.tracking_number.present? %>
+            <tr>
+              <td scope="row"><%=l order.created_at%></th>
+              <td><%= image_tag order.item.image, class: "order-index-item-img" %></td>
+              <td><%= link_to order.item.jp_name, item_path(order.item.id) %></td>
+              <td><%= link_to "詳細確認", edit_order_path(order.item.id)%></td>
+              <td><%= order.order_number %></td>
+              <td><%= order.quantity %></td>
+              <td><%= order.price %></td>
+              <td>
+                <% if order.tracking_number.present? %>
+                  <% order.tracking_number.number %>
+                <% else %>
+                  <%= button_to "追跡番号登録", order_tracking_numbers_path(order.id), {method: :get, class: "btn btn-secondary"} %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -9,8 +9,6 @@ class UsersController < ApplicationController
 
   def move_to_home
     user = User.find(params[:id])
-    unless user_signed_in? && user.id == current_user.id
-      redirect_to root_path
-    end
+    redirect_to root_path unless user_signed_in? && user.id == current_user.id
   end
 end

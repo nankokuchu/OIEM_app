@@ -1,9 +1,9 @@
+<% breadcrumb :mypage %>
 <%= render "shared/header" %>
 
 <div class="container">
   <div class="container d-flex justify-content-center p-3 mb-2 bg-info text-white">
   <h2>発注必要な商品リスト</h2>
-  <%= button_to "カーゴに追加", root_path, {method: :get} %>
   </div>
   <div class="container">
 <table class="table table-striped">
@@ -13,7 +13,7 @@
       <th scope="col">商品イメージ</th>
       <th scope="col">商品名</th>
       <th scope="col">仕入れ先ページ</th>
-      <th scope="col">過去の販売個数</th>
+      <th scope="col">過去の発注個数</th>
       <th scope="col">在庫数</th>
     </tr>
   </thead>
@@ -25,8 +25,14 @@
       <td><%= image_tag item.image, class: "user-show-item-img" %></td>
       <td><%= link_to item.jp_name, item_path(item.id) %></td>
       <td><%= link_to "仕入先商品購入ページ", item.manufacture_url, method: :get, :target=>["_blank"] %></td>
-      <td>オーダー昨日実装後</td>
-      <td><%= item.stock_quantity %><%= button_to "カーゴに追加", root_path, {method: :get} %></td>
+      <td>
+        <% if item.orders.present? %>
+          <%= item.orders.pluck(:quantity).inject(:+) %>
+        <% else %>
+          <%= "0" %>
+        <% end %> 
+      </td>
+      <td><%= item.stock_quantity %><%= button_to "発注する", new_item_order_path(item.id), {method: :get} %></td>
     </tr>
     <% end %>
   <% end %>

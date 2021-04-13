@@ -11,6 +11,7 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.string :manufacture_url, null: false
       t.integer :selling_price, null: false
       t.integer :purchase_price, null: false
+      t.integer :ppurchase_price, null: false
       t.string :weight, null: false
       t.string :stock_standard, null: false
       t.integer :items_status_id, null: false

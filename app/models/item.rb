@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
+  has_many :orders
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -25,14 +26,14 @@ class Item < ApplicationRecord
   with_options numericality: true, inclusion: { in: 0..9_999_999 }, format: { with: /\A[0-9]+\z/ } do
     validates :selling_price
     validates :purchase_price
+    validates :ppurchase_price
   end
 
   def self.search(search)
-    if search != ""
+    if search != ''
       Item.where('jp_name LIKE(?)', "%#{search}%")
     else
       Item.all
     end
   end
-
 end
