@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <div class="container">
+    <p class="text-center mt-5">貨物の追跡番号と重さを登録する</p>
+  </div>
+  <div class="container">
+    <%= form_with model: @manage_order, url: order_manages_path, local: true do |f| %>
+    <%= render 'shared/error_messages', model: f.object %> 
+      <div class="weight-bold-text">
+        追跡番号
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_field :order_tracking_number, class:"items-text", id:"manage-order-tracking-number", value: @manage_tracking_number  %>
+      <div class="weight-bold-text">
+        貨物の重量
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_field :order_weight, class:"items-text", id:"manage-order-tracking-number", value: @manage_order_weith %>
+      <div class="weight-bold-text">
+        貨物の状態
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_field :arrival_status_id, class:"items-text", id:"manage-order-tracking-number", value: 2 %>
+      <%= f.submit "登録する" ,class:"item-red-btn" %>
+    <% end %>
+  </div>
+</div>
+

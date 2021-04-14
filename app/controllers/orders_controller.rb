@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
 
   def sent
     @sent_orders = current_user.orders.where(arrival_status_id: 3).includes(:item)
+    @abc = Faker::Dessert.topping
   end
 
   def processed

@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :item
+  has_one :manage
   has_one :tracking_number
 
   extend ActiveHash::Associations::ActiveRecordExtensions
