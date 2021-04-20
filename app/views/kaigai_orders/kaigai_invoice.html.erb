@@ -1,0 +1,35 @@
+<%= render "shared/header" %>
+<%= render "shared/user_nav_list"%>
+
+<div class="container">
+  <div class="container">
+    <table class="table table-striped">
+        <thead class="bg-info">
+          <tr>
+            <th scope="col">発送依頼No.</th>
+            <th scope="col">日付</th>
+            <th scope="col">送料</th>
+            <th scope="col">貨物重量</th>
+            <th scope="col">支払状態</th>
+            <th scope="col">インボイス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @kaigai_orders.each do |order| %>
+            <% if order.kaigai_order_pay.present? %>
+              <% unless order.invoice.present? %>
+              <tr>
+                <td scope="row"><%= link_to order.kaigai_order_name, kaigai_order_path(order.id) %></th>
+                <td><%=l order.created_at%></td>
+                <td><%= order.kaigai_order_price %></td>
+                <td><%= order.kaigai_order_weight %></td>
+                <td>支払済</td>
+                <td><%= button_to "作成", new_kaigai_order_invoice_path(order.id), {method: :get, class: "btn btn-secondary"} %></td>
+              </tr>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+</div>

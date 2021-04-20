@@ -29,7 +29,7 @@
 }
 
 .search-form>.input-box {
-  width: 40%;
+  width: 90%;
   height: 5vh;
   padding-left: 10px;
 }
@@ -38,7 +38,7 @@
   width: 5vh;
   border: 0;
   cursor: pointer;
-  background-color: #3ccace;
+  background-color: #bfce3c;
   padding: 8px;
 }
 

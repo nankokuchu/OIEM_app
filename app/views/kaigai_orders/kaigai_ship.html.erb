@@ -1,0 +1,53 @@
+<%= render "shared/header" %>
+<%= render "shared/user_nav_list"%>
+
+<div class="container">
+  <div class="container">
+    <table class="table table-striped">
+        <thead class="bg-warning">
+          <tr>
+            <th scope="col">発送依頼No.</th>
+            <th scope="col">日付</th>
+            <th scope="col">送料</th>
+            <th scope="col">貨物重量</th>
+            <th scope="col">インボイス</th>
+            <th scope="col">追跡番号</th>
+            <th scope="col">処理済</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @kaigai_orders.each do |order| %>
+            <% if order.kaigai_order_pay.present? %>
+              <% unless order.kaigai_order_over.present? %>
+              <% if order.invoice.present? %>
+              <tr>
+                <td scope="row"><%= link_to order.kaigai_order_name, kaigai_order_path(order.id) %></th>
+                <td><%=l order.created_at%></td>
+                <td><%= order.kaigai_order_price %></td>
+                <td><%= order.kaigai_order_weight %></td>
+                <td><%= link_to "インボイスを表示", invoice_path(order.invoice.id) %></td>
+                <td>
+                  <% if order.kaigai_tracking.present? %>
+                    <%= link_to order.kaigai_tracking.number, "https://trackings.post.japanpost.jp/services/srv/search/direct?searchKind=S004&locale=ja&reqCodeNo1=#{order.kaigai_tracking.number}&x=0&y=0", :target=>["_blank"] %>
+                  <% else %>
+                  発送中
+                  <% end %>
+                  </td>
+                <td>
+                <%= form_with model: @kaigai_order_over, url:kaigai_order_over_create_kaigai_order_path(order.id), local: true do |f|%>
+                  <% if order.kaigai_tracking.present? %>
+                    <%= f.submit "処理済に変更", class: "btn btn-warning mt-2"%>
+                  <% else %>
+                    処理中
+                  <% end %>
+                <% end %>
+                </td>
+              </tr>
+              <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+</div>

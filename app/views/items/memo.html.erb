@@ -6,7 +6,7 @@
 <table class="table table-striped">
   <thead class="bg-secondary">
     <tr>
-      <th scope="col">発注日付</th>
+      <th scope="col">処理日付</th>
       <th scope="col">ユーザー名</th>
       <th scope="col">メーカー追跡番号</th>
       <th scope="col">到着している追跡番号</th>
@@ -16,8 +16,9 @@
   </thead>
   <tbody>
   <% @m_new_orders.each do |order| %>
+  <% if order.manage.present? %>
     <tr>
-      <td scope="row"><%=l order.created_at %></th>
+      <td scope="row"><%=l order.manage.created_at %></th>
       <td><%= order.user.nickname %></td>
       <td>
         <% if order.tracking_number.present? %>
@@ -49,17 +50,7 @@
           データなし
         <% end %>
       </td>
-      <td>
-        <% if order.tracking_number.present? %>
-          <% if @infos.exists?(info_order_tracking_number: order.tracking_number.number)%>
-            <%= link_to "処理する", new_order_manage_path(order.id), class:"btn btn-success" %>
-          <% else %>
-            処理待ち
-          <% end %>
-        <% else %>
-          処理待ち
-        <% end %>
-      </td>
+      <td>到着済み</td>
     </tr>
   <% end %>
   </tbody>

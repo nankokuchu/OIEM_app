@@ -1,109 +1,47 @@
 <% breadcrumb :items %>
 <%= render "shared/header" %>
+<%= render "shared/user_nav_list"%>
 
-<%= form_with url: search_items_path, local: true, method: :get, class:'search-form' do |f| %>
-  <%= f.text_field :keyword, placeholder: "キーワードから商品を探す", class: "input-box" %>
-  <button class="search-button">
-    <%= image_tag "search.png", class:"search-icon" %>
-  </button>
-<% end %>
 
 <div class='main'>
   <div class='item-contents'>
-    <h2 class='title'>登録している商品の一覧</h2>課題：表示の仕方,カゴボタン追加、在庫数追加
-    <ul class='item-lists'>
-      <% @display_items.each do |item| %>
-        <li class='list'>
-          <%= link_to item_path(item.id) do %>
-          <div class='item-img-content'>
-            <%= image_tag item.image, class: "item-img" %>
-              <div class='sold-out'>
-                  <% if item.order_status_id == 2 %>
+    <h2 class='title text-muted'>登録している商品の一覧</h2>
+  </div> 
+  <div class="container">
+    <div class="container">
+      <table class="table table-striped">
+        <thead class="bg-secondary">
+          <tr>
+            <th scope="col">商品イメージ</th>
+            <th scope="col">商品名</th>
+            <th scope="col">仕入価格</th>
+            <th scope="col">在庫数</th>
+            <th scope="col">発注基準値</th>
+            <th scope="col">発注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @display_items.each do |item|%>
+            <tr>
+              <td scope="row">
+                <div class='item-img-content'>
+                  <%= image_tag item.image, class: "item-img" %>
+                  <div class='sold-out'>
+                    <% if item.order_status_id == 2 %>
                     <span>発注中</span>
                   <% end %>
-              </div> 
-          </div>
-            <div class='item-info'>
-              <h3 class='item-name'>
-                <%= item.jp_name %>
-              </h3>
-              <div class='item-price'>
-                <span>仕入価格：<%= item.purchase_price %>円</span>
-              </div>
-              <div class='item-price'>
-                <span>在庫数：<%= item.stock_quantity %></span>
-              </div>
-              <div class='item-price'>
-                <span>発注基準値：<%= item.stock_standard %></span>
-              </div>
-            </div>
+                  </div> 
+                </div>
+              </th>
+              <td><%= link_to item.jp_name, item_path(item.id) %></td>
+              <td><%= item.purchase_price %>円</td>
+              <td><%= item.stock_quantity %></td>
+              <td><%= item.stock_standard %></td>
+              <td><%= button_to "発注する", new_item_order_path(item.id), {method: :get, class: "btn btn-secondary"} %></td>
+            </tr>
           <% end %>
-        </li>
-      <% end %>
-    </ul>
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  <div class='item-contents'>
-  <% if @order_items.present? %>
-    <h2 class='title'>発注中の商品一覧</h2>
-    <ul class='item-lists'>
-      <% @order_items.each do |item| %>
-        <li class='list'>
-          <%= link_to item_path(item.id) do %>
-          <div class='item-img-content'>
-            <%= image_tag item.image, class: "item-img" %>
-          </div>
-            <div class='item-info'>
-              <h3 class='item-name'>
-                <%= item.jp_name %>
-              </h3>
-              <div class='item-price'>
-                <span>仕入価格：<%= item.purchase_price %>円</span>
-              </div>
-              <div class='item-price'>
-                <span>在庫数：<%= item.stock_quantity %></span>
-              </div>
-              <div class='item-price'>
-                <span>発注基準値：<%= item.stock_standard %></span>
-              </div>
-            </div>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-    <% end %>
-  </div>
-
-  <div class='item-contents'>
-  <% if @hiden_items.present? %>
-    <h2 class='title'>非表示商品の一覧</h2>
-    <ul class='item-lists'>
-      <% @hiden_items.each do |item| %>
-        <li class='list'>
-          <%= link_to item_path(item.id) do %>
-          <div class='item-img-content'>
-            <%= image_tag item.image, class: "item-img" %>
-          </div>
-            <div class='item-info'>
-              <h3 class='item-name'>
-                <%= item.jp_name %>
-              </h3>
-              <div class='item-price'>
-                <span>仕入価格：<%= item.purchase_price %>円</span>
-              </div>
-              <div class='item-price'>
-                <span>在庫数：<%= item.stock_quantity %></span>
-              </div>
-              <div class='item-price'>
-                <span>発注基準値：<%= item.stock_standard %></span>
-              </div>
-            </div>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-    <% end %>
-  </div>
-</div>
-
-
+</div>  

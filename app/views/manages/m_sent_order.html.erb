@@ -1,0 +1,42 @@
+<%= render "shared/m_header" %>
+<%= render "shared/m_order_list" %>
+
+<div class="container">
+  <div class="container">
+<table class="table table-striped">
+  <thead class="bg-success">
+    <tr>
+      <th scope="col">依頼日付</th>
+      <th scope="col">依頼番号</th>
+      <th scope="col">インボイス番号</th>
+      <th scope="col">ユーザー名</th>
+      <th scope="col">総重量</th>
+      <th scope="col">支払送料</th>
+      <th scope="col">追跡番号</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @m_new_orders.each do |order| %>
+    <% if order.kaigai_order_pay.present? %>
+      <% if order.invoice.present? %> 
+        <% if order.kaigai_tracking.present? %>
+        <tr>
+      <td scope="row"><%=l order.created_at %></th>
+      <td><%= link_to order.kaigai_order_name, m_new_order_show_manage_path(order.id) %></td>
+      <td><%= link_to order.invoice.invoice_name, invoice_path(order.invoice.id) %></td>
+      <td>
+      <%= order.user.last_name_reading %> <%= order.user.first_name_reading %></br>
+      <%= order.user.last_name %> <%= order.user.first_name %>
+      </td>
+      <td><%= order.kaigai_order_weight%></td>
+      <td><%= order.kaigai_order_price%></td>
+      <td> <%= link_to order.kaigai_tracking.number, "https://trackings.post.japanpost.jp/services/srv/search/direct?searchKind=S004&locale=ja&reqCodeNo1=#{order.kaigai_tracking.number}&x=0&y=0", :target=>["_blank"] %></td>
+    </tr>
+    <% end %>
+    <% end %>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+  </div>
+</div>

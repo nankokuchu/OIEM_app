@@ -1,0 +1,41 @@
+<div class="container border border-dark mt-2 mb-5">
+  <div class="container mt-3 mb-3">
+    <p class="h5 text-center mt-2">納品書</p>
+  </div>
+  <div class="container border border-dark mt-2 mb-5">
+    <p class="h5 text-left mt-2">送付先住所</p>
+    〒：<%= @kaigai_order.kaigai_order_pay.address.postal_code %></br>
+    <%= @kaigai_order.kaigai_order_pay.address.prefecture.name %>
+    <%= @kaigai_order.kaigai_order_pay.address.city %>
+    <%= @kaigai_order.kaigai_order_pay.address.house_number %>
+    <%= @kaigai_order.kaigai_order_pay.address.building_name %></br>
+    <%= @kaigai_order.user.last_name %> <%= @kaigai_order.user.first_name %></br>
+    TEL:<%= @kaigai_order.kaigai_order_pay.address.phone_number %></br>
+  </div>
+  <div class="container mt-2 mb-5">
+    <div class="container mt-2">
+      仮送料：<%= @kaigai_order.kaigai_order_price%>円
+    </div>
+    <div class="container mt-2">
+      仮重量：<%= @kaigai_order.kaigai_order_weight%>kg
+    </div>
+  </div>
+  <div class="container border border-dark mt-2 mb-5">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>オーダーNO.</th>
+          <th>追跡番号</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td> <%= order.order_name %> </td>
+            <td><%= order.tracking_number.number%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

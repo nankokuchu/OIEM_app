@@ -1,6 +1,7 @@
 class TrackingNumbersController < ApplicationController
   
   before_action :set_to_order_index_create, only: [:index, :create]
+  before_action :set_to_order_update, only: [:update]
   before_action :move_to_root, only: [:index, :create, :update]
 
   def index
@@ -22,8 +23,6 @@ class TrackingNumbersController < ApplicationController
   end
 
   def update
-    @order = Order.find(params[:tracking_number][:order_id])
-    @item = @order.item
     @tracking_number = TrackingNumber.find(params[:id])
     if @tracking_number.update(tracking_number_update_params)
       redirect_to tracking_orders_path
@@ -44,6 +43,11 @@ class TrackingNumbersController < ApplicationController
 
   def set_to_order_index_create
     @order = Order.find(params[:order_id])
+    @item = @order.item
+  end
+
+  def set_to_order_update
+    @order = Order.find(params[:tracking_number][:order_id])
     @item = @order.item
   end
 

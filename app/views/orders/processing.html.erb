@@ -1,36 +1,70 @@
 <% breadcrumb :processing %>
 <%= render "shared/header" %>
-<%= render "shared/order_list" %>
+<%= render "shared/user_nav_list"%>
 
 <div class="container">
   <div class="container">
-<table class="table table-striped">
-  <thead class="bg-warning">
-    <tr>
-      <th scope="col">発注日付</th>
-      <th scope="col">商品イメージ</th>
-      <th scope="col">商品名</th>
-      <th scope="col">発注詳細</th>
-      <th scope="col">発注個数</th>
-      <th scope="col">メーカー追跡番号</th>
-      <th scope="col">貨物重量</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @new_orders.each do |order|%>
-    <% if order.tracking_number.present? %>
-    <tr>
-      <td scope="row"><%=l order.created_at%></th>
-      <td><%= image_tag order.item.image, class: "order-index-item-img" %></td>
-      <td><%= link_to order.item.jp_name, item_path(order.item.id) %></td>
-      <td><%= link_to "詳細確認", edit_order_path(order.item.id)%></td>
-      <td><%= order.quantity %></td>
-      <td><%= link_to order.tracking_number.number, order_tracking_numbers_path(order.id) %></td>
-      <td><%= order.manage.order_weight %>kg</td>
-    </tr>
+    <%= form_with model: @kaigai_order, local: true do |f| %>
+    <%= render 'shared/error_messages', model: f.object %> 
+    <%= f.hidden_field :kaigai_order_name, value: "#{current_user.nickname}-kg-#{Time.current.strftime("%Y%m%d%H%M%S")}" %>
+      <table class="table table-striped">
+        <thead class="bg-warning">
+          <tr>
+            <th scope="col">選択</th>
+            <th scope="col">発注日付</th>
+            <th scope="col">商品イメージ</th>
+            <th scope="col">商品名</th>
+            <th scope="col">発注詳細</th>
+            <th scope="col">発注個数</th>
+            <th scope="col">メーカー追跡番号</th>
+            <th scope="col">貨物重量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @new_orders.each do |order| %>
+            <tr>
+              <td scope="row">
+                <div class="form-check">
+                  <input class="form-check-input", name="kaigai_order[order_ids][]", type="checkbox", value=<%= order.id %> checked="checked", id="flexCheckDefault">
+                </div>
+              </th>
+              <td><%=l order.created_at%></td>
+              <td><%= image_tag order.item.image, class: "order-index-item-img" %></td>
+              <td><%= link_to order.item.jp_name, item_path(order.item.id) %></td>
+              <td><%= link_to "詳細確認", edit_order_path(order.id)%></td>
+              <td><%= order.quantity %></td>
+              <td><%= link_to order.tracking_number.number, order_tracking_numbers_path(order.id) %></td>
+              <td><%= order.manage.order_weight %>kg</td>
+            </tr>
+          <% end %>
+        </tbody>
+        <thead >
+          <tr>
+            <td colspan="7">
+              <p class="text-right text-wrap">貨物の総重量</p>
+            </td>
+            <td>
+            <%= f.text_field :kaigai_order_weight, class:"items-text kaigai_order_weight", id:"kaigai-order-weight" %>
+          </tr>
+        </thead>
+        <thead >
+          <tr>
+            <td colspan="7">
+              <p class="text-right text-wrap">送料</p>
+            </td>
+            <td>
+            <%= f.text_field :kaigai_order_price, class:"items-text kaigai_order_price", id:"kaigai-order-price" %>
+          </tr>
+        </thead> 
+        <thead >
+          <tr>
+            <td colspan="8">
+              <%= f.submit "オーダーを生成する", class: "btn btn-danger float-right" %>
+            </td>
+          </tr>
+        </thead> 
+      </table>
     <% end %>
-  <% end %>
-  </tbody>
-</table>
   </div>
 </div>
+

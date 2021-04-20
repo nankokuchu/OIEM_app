@@ -1,10 +1,8 @@
-<% breadcrumb :orders_index %>
 <%= render "shared/header" %>
 
 <%= form_with model: @items_order, url: item_orders_path, local: true do |f| %>
+<%= render 'shared/error_messages', model: f.object %> 
 
-    <%= render 'shared/error_messages', model: f.object %> 
-<%# 商品の概要 %>
 <div class="item-show">
   <div class="item-box">
     <div class="item-img-content">
@@ -12,27 +10,29 @@
     </div>
 
   <div class="new-items">
-      <div class="weight-bold-text">
-        発注数
-        <span class="indispensable">必須</span>
-      </div>
-      <%= f.text_field :quantity, class:"items-text", id:"item-order-quantity", placeholder:"半角数値を入れてください" %>
-      <div class="weight-bold-text">
-        発注金額
-        <span class="indispensable">必須</span>
-      </div>
-      <%= f.text_field :price, class:"items-text", id:"item-order-price", placeholder:"発注数を入力すると自動で計算されます" %>
-      <div class="weight-bold-text">
-        メーカー発注番号
-        <span class="indispensable">必須</span>
-      </div>
-      <%= f.text_field :order_number, class:"items-text", id:"item-order-order-number", placeholder:"メーカー発注番号を貼り付けてください" %>
+    <div class="weight-bold-text">
+      発注数
+      <span class="indispensable">必須</span>
     </div>
+    <%= f.text_field :quantity, class:"items-text", id:"item-order-quantity", placeholder:"半角数値を入れてください" %>
+    <div class="weight-bold-text">
+      発注金額
+      <span class="indispensable">必須</span>
+    </div>
+    <%= f.text_field :total_price, class:"items-text", id:"item-order-total-price", placeholder:"発注数を入力すると自動で計算されます" %>
+    <div class="weight-bold-text">
+      メーカー発注番号
+      <span class="indispensable">必須</span>
+    </div>
+    <%= f.text_field :order_number, class:"items-text", id:"item-order-order-number", placeholder:"メーカー発注番号を貼り付けてください" %>
+  </div>
+    <%= f.hidden_field :order_name, value:  "#{current_user.nickname}-od-#{Time.current.strftime("%Y%m%d%H%M%S")}" , id:"item-order-name" %>
+    <%= f.hidden_field :item_price, value: @item.purchase_price, id:"item-order-price" %>
     <%= f.submit "発注する" ,class:"item-red-btn" %>
     <%= f.text_field :order_status_id, type: "hidden", value: 2 %>
     <%= f.text_field :invoice_status_id, type: "hidden", value: 1 %>
     <%= f.text_field :arrival_status_id, type: "hidden", value: 1 %>
-<% end %>
+    <% end %>
     <div class="item-explain-box">
       <span><%= "商品詳細" %></span>
     </div>

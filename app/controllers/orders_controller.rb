@@ -13,19 +13,24 @@ class OrdersController < ApplicationController
 
   def processing
     @new_orders = current_user.orders.where(arrival_status_id: 2).includes(:item)
-  end
-
-  def sent
-    @sent_orders = current_user.orders.where(arrival_status_id: 3).includes(:item)
-    @abc = Faker::Dessert.topping
-  end
-
-  def processed
-    @processed_orders = current_user.orders.where(arrival_status_id: 4).includes(:item)
+    @kaigai_order = KaigaiOrder.new
   end
 
   def cancel
-    @cancel_orders = current_user.orders.where(arrival_status_id: 5).includes(:item)
+    @cancel_orders = current_user.orders.includes(:item)
+  end
+
+  def order_cancel_new
+    @order_cancel = Ordercancel.new
+  end
+
+  def order_cancel_create
+    @order_cancel = OrderCancel.new(order_id: params[:id])
+    if @order_cancel.save
+      redirect_to root_path
+    else
+      render :kaigai_ship
+    end
   end
 
   def new
@@ -43,6 +48,7 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    @kaigai_order = @order.kaigai_orders
   end
 
   def update
@@ -56,13 +62,13 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:items_order).permit(:price, :quantity, :order_number, :invoice_status_id, :arrival_status_id).merge(
+    params.require(:items_order).permit(:order_name, :total_price, :item_price, :quantity, :order_number, :invoice_status_id, :arrival_status_id).merge(
       user_id: current_user.id, item_id: params[:item_id]
     )
   end
 
   def tracking_params
-    params.require(:order).permit(:item_id, :price, :quantity, :order_number, :invoice_status_id, :arrival_status_id,
+    params.require(:order).permit(:item_id, :total_price, :quantity, :order_number, :invoice_status_id, :arrival_status_id,
                                   :tracking_number, :arrival_status_id).merge(user_id: current_user.id)
   end
 

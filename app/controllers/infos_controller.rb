@@ -21,8 +21,8 @@ class InfosController < ApplicationController
   end
 
   def move_to_index
-    if authenticate_user! && current_user.id != 3
-      redirect_to rott_path
+    if authenticate_user! && current_user.id != 1
+      redirect_to root_path
     end
   end
 end

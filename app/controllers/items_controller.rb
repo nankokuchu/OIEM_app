@@ -1,10 +1,16 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_index_item, only: [:index, :search]
+  before_action :set_index_item, only: [:index, :search, :item_hidden, :item_shiping]
   before_action :set_to_item, only: [:show, :edit, :update]
   before_action :move_to_index, only: [:show, :edit, :update]
 
   def index
+  end
+
+  def item_hidden
+  end
+
+  def item_shiping
   end
 
   def new

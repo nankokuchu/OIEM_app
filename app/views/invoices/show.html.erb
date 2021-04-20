@@ -1,0 +1,97 @@
+<div class="container border border-dark mt-2 mb-5">
+  <div class="container mt-5 mb-5">
+    <p class="h1 text-center">invoice</p>
+  </div>
+  <div class="container mb-5">
+    <% if @kaigai_order.invoice.present? %>
+      <p class="h5 text-right mt-2">DATE：<%= l @invoice.created_at %></p>
+    <% else %>
+      <p class="h5 text-right mt-2">DATE：<%= Date.today.strftime("%Y年 %m月 %d日") %></p>
+    <% end %>
+    <p class="h5 text-right mt-2">発送依頼No.:<%= @kaigai_order.kaigai_order_name%></p>
+  </div>
+  <div class="container mb-3 d-flex">
+    <div class="container border border-dark mt-3 mb-5 mr-3">
+      <div class="container mt-2 flex">
+        <p class="h3">shiper</p>
+      </div>
+      <div class="container mt-1">
+        <p class="h3">123-4567</p>
+      </div>
+      <div class="container mt-1">
+        <p class="h3">CHina.....</p>
+      </div>
+      <div class="container mt-1">
+        <p class="h3">shanghai....</p>
+      </div>
+      <div class="container mt-1">
+        <p class="h3">shanghai....</p>
+      </div>
+    </div>
+    <div class="container border border-dark mt-3 mb-5">
+      <div class="container mt-2 flex">
+        <p class="h3">Consignee</p>
+      </div>
+      <div class="container mt-1">
+      <%= @kaigai_order.kaigai_order_pay.address.postal_code %>
+      </div>
+      <div class="container mt-1">
+      日本
+      <%= @kaigai_order.kaigai_order_pay.address.prefecture.name %>
+      </div>
+      <div class="container mt-1">
+      <%= @kaigai_order.kaigai_order_pay.address.city %>
+      </div>
+      <div class="container mt-1">
+      <%= @kaigai_order.kaigai_order_pay.address.house_number %>
+      </div>
+      <div class="container mt-1">
+      <%= @kaigai_order.kaigai_order_pay.address.building_name %>
+      </div>
+      <div class="container mt-1">
+      <%= @kaigai_order.user.last_name %> <%= @kaigai_order.user.first_name %>  様
+      </div>
+      <div class="container mt-1">
+      TEL:<%= @kaigai_order.kaigai_order_pay.address.phone_number %>
+      </div>
+    </div>
+    </div>
+  <div class="container mb-5">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>name(商品名)</th>
+          <th>material(材質)</th>
+          <th>quantity(数量)</th>
+          <th>price(単価)JPY</th>
+          <th>Total Amount(合計額)JPY</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order|%>
+          <tr>
+            <td><%= order.item.eng_name %></td>
+            <td><%= order.item.eng_material %></td>
+            <td><%= order.quantity %></td>
+            <td><%= order.item_price %></td>
+            <td><%= order.total_price %> JPY</td>
+          </tr>
+        <% end %> 
+      </tbody>
+      <thead >
+        <tr>
+          <td colspan="4">
+            <p class="text-right text-wrap">Total Amount(合計額)JPY</p>
+          </td>
+          <td colspan="1">
+            <% @sum = 0 %>
+            <% @orders.each do |order| %> 
+              <% @sum += order.total_price.to_i %>
+            <% end %>
+            <%= @sum %> JPY
+          <td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>

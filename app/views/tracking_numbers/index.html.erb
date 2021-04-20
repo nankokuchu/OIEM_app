@@ -13,15 +13,15 @@
       <tbody>
         <tr>
           <th class="detail-item">発注数</th>
-          <td class="detail-value"><%= @item.jp_name %></td>
+          <td class="detail-value"><%= @order.quantity %></td>
         </tr>
         <tr>
           <th class="detail-item">発注金額</th>
-          <td class="detail-value"><%= @item.purchase_price %>円</td>
+          <td class="detail-value"><%= @order.total_price %>円</td>
         </tr>
         <tr>
           <th class="detail-item">メーカー発注番号</th>
-          <td class="detail-value"><%= @item.stock_quantity %></td>
+          <td class="detail-value"><%= @order.order_number %></td>
         </tr>
       </tbody>
   </table>
@@ -55,6 +55,7 @@
       <div class="container tracking-container d-flex justify-content-center mb-3 mt-5">
           <%= f.text_field :number, class:"tracking-form-control form-control form-control-lg", id:"order-tracking-number", placeholder:"追跡番号を貼り付けてください" %>
           <%= f.text_field :order_id, type: "hidden", value: @order.id %>
+          <%= f.text_field :arrival_status_id, type: "hidden", value: 1 %>
           <%= f.submit "登録/編集する", class:"tracking-btn btn btn-success ml-5" %>
         </div>
       <% end %>

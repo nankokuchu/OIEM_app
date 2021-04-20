@@ -1,0 +1,43 @@
+<%= render "shared/header" %>
+<%= render "shared/user_nav_list"%>
+
+<div class='main'>
+  <div class='item-contents'>
+    <h2 class='title text-muted'>非表示商品一覧</h2>
+  </div> 
+  <div class="container">
+    <div class="container">
+      <table class="table table-striped">
+        <thead class="bg-warning">
+          <tr>
+            <th scope="col">商品イメージ</th>
+            <th scope="col">商品名</th>
+            <th scope="col">仕入価格</th>
+            <th scope="col">在庫数</th>
+            <th scope="col">発注基準値</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @hiden_items.each do |item|%>
+            <tr>
+              <td scope="row">
+                <div class='item-img-content'>
+                  <%= image_tag item.image, class: "item-img" %>
+                  <div class='sold-out'>
+                    <% if item.order_status_id == 2 %>
+                    <span>発注中</span>
+                  <% end %>
+                  </div> 
+                </div>
+              </th>
+              <td><%= link_to item.jp_name, item_path(item.id) %></td>
+              <td><%= item.purchase_price %>円</td>
+              <td><%= item.stock_quantity %></td>
+              <td><%= item.stock_standard %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>  

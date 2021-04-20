@@ -1,0 +1,73 @@
+<%= render "shared/header" %>
+
+<div class="container">
+  <div class="container mb-20">
+    <div class="container">
+      <div class="container">
+        <% unless @kaigai_order.kaigai_order_pay.present? %>
+          <% if @kaigai_order.kaigai_order_cancel.present? %>
+            <div class="container mt-2">
+              <div class="p-3 mb-4 bg-danger text-white font-weight-bold text-center ">
+                こちらの発送依頼はキャンセルされています
+              </div>
+            </div>
+          <% else %>
+            <div class="container">
+              <div class="container mt-2">
+                <div class="p-3 mb-2 bg-danger text-white font-weight-bold text-center ">
+                  発送依頼を修正することはできません</br>
+                  修正する場合、発送依頼をキャンセルしてください</br>
+                  キャンセルされている発送依頼は戻すことはできません</br>
+                </div>
+              </div>
+              <div class="container mb-4">
+                <%= form_with model: @kaigai_order_cancel, url: kaigai_order_kaigai_order_cancels_path(@kaigai_order.id), local: true do |f| %>
+                <%= f.text_field :arrival_status_id, type: "hidden", value: 2 %>
+                <%= f.submit "オーダーをキャンセルする", class: "btn btn-dark" %>
+                <% end %>
+              </div>
+            </div>  
+          <% end %>
+        <% else %>
+          <div class="container mt-2">
+            <div class="p-3 mb-4 bg-danger text-white font-weight-bold text-center ">
+              支払い済み
+              </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="container">
+      <table class="table table-striped">
+        <thead class="bg-primary">
+          <tr>
+            <th scope="col">発注日付/発注No.</th>
+            <th scope="col">商品イメージ</th>
+            <th scope="col">商品詳細</th>
+            <th scope="col">メーカー発注番号</th>
+            <th scope="col">発注個数</th>
+            <th scope="col">発注金額</th>
+            <th scope="col">メーカー追跡番号</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order|%>
+            <tr>
+              <td scope="row"><%=l order.created_at%></br>
+              <%= link_to order.order_name, edit_order_path(order.id) %>
+              </th>
+              <td><%= image_tag order.item.image, class: "order-index-item-img" %></td>
+              <td><%= link_to order.item.jp_name, item_path(order.item.id) %></td>
+              <td><%= order.order_number %></td>
+              <td><%= order.quantity %></td>
+              <td><%= order.total_price %></td>
+              <td><%= order.tracking_number.number %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

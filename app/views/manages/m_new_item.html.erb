@@ -1,0 +1,70 @@
+<%= render "shared/m_header" %>
+<%= render "shared/m_order_list" %>
+
+<div class="container">
+  <div class="container">
+<table class="table table-striped">
+  <thead class="bg-primary">
+    <tr>
+      <th scope="col">発注日付</th>
+      <th scope="col">ユーザー名</th>
+      <th scope="col">メーカー追跡番号</th>
+      <th scope="col">到着している追跡番号</th>
+      <th scope="col">到着している荷物の重さ</th>
+      <th scope="col">処理</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @m_new_orders.each do |order| %>
+    <% unless order.order_cancel.present? %>
+      <tr>
+        <td scope="row"><%=l order.created_at %></th>
+        <td><%= order.user.nickname %></td>
+        <td>
+          <% if order.tracking_number.present? %>
+            <%= order.tracking_number.number %>
+          <% else %>
+            データなし
+          <% end %>
+        </td>
+        <td>
+          <% if order.tracking_number.present? %>
+            <% if @infos.exists?(info_order_tracking_number: order.tracking_number.number)%>
+              <%= @infos.where(info_order_tracking_number: order.tracking_number.number).pluck(:info_order_tracking_number)[0] %><br>
+              到着済
+            <% else %>
+              倉庫に未到着
+            <% end %>
+          <% else %>
+            データなし
+          <% end %>
+        </td>
+        <td>
+          <% if order.tracking_number.present? %>
+            <% if @infos.exists?(info_order_tracking_number: order.tracking_number.number)%>
+              <%= @infos.where(info_order_tracking_number: order.tracking_number.number).pluck(:info_order_weight)[0] %>kg
+            <% else %>
+              データなし
+            <% end %>
+          <% else %>
+            データなし
+          <% end %>
+        </td>
+        <td>
+          <% if order.tracking_number.present? %>
+            <% if @infos.exists?(info_order_tracking_number: order.tracking_number.number)%>
+              <%= link_to "処理する", new_order_manage_path(order.id), class:"btn btn-success" %>
+            <% else %>
+              処理待ち
+            <% end %>
+          <% else %>
+            処理待ち
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+  </div>
+</div>

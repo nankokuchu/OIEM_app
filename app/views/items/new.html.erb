@@ -9,10 +9,7 @@
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
     <%= form_with model: @item, local: true do |f| %>
-
     <%= render 'shared/error_messages', model: f.object %> 
-
-    <%# 出品画像 %>
     <div class="img-upload">
       <div class="weight-bold-text">
         出品画像
@@ -25,8 +22,6 @@
         <%= f.file_field :image, id:"item-image" %>
       </div>
     </div>
-    <%# /出品画像 %>
-    <%# 商品名と商品説明 %>
     <div class="new-items">
       <div class="weight-bold-text">
         【日本語】商品名
@@ -39,9 +34,6 @@
       </div>
       <%= f.text_area :eng_name, class:"items-text", id:"item-eng_name", placeholder:"英語の商品名（必須 40文字まで)(インボイス作成する際に利用します)", maxlength:"40" %>
     </div>
-    <%# /商品名と商品説明 %>
-
-    <%# 商品の詳細 %>
     <div class="items-detail">
       <div class="weight-bold-text">商品詳細</div>
       <div class="form">
@@ -86,17 +78,12 @@
         <%= f.text_field :stock_standard, class:"select-box", id:"item-stock-standard", placeholder:"発注通知個数を入力してください", maxlength:"10" %>
       </div>
     </div>
-    <%# /商品の詳細 %>
-
-
-    <%# 販売価格 %>
     <div class="sell-price">
       <div class="weight-bold-text question-text">
         <span>商品価格</span>
         <a class="question" href="#">?</a>
       </div>
       <div>
-
         <div class="price-content">
           <div class="price-text">
             <span>メーカー価格</span>
@@ -104,7 +91,6 @@
           <span class="sell-yen">¥</span>
           <%= f.text_field :ppurchase_price, class:"price-input", id:"item-ppurchase_price", placeholder:"例）300" %>
         </div>
-
         <div class="price-content">
           <span>為替レート</span>
           <span>
@@ -112,7 +98,6 @@
           </span>
             <%= f.collection_select(:ratehoge, ExchangeRate.all, :rate, :exchange, {class:"select-box", id:"item-exchange-rate"}) %>
         </div>
-
         <div class="price-content">
           <span>メーカー送料</span>
           <span>
@@ -120,7 +105,6 @@
           </span>
           <%= f.collection_select(:overseahoge, OverseaFeedEmsShip.all, :price, :name, {class:"select-box", id:"item-oversea-feed"}) %>
         </div>
-
         <div class="price-content">
           <span>販売送料</span>
           <span>
@@ -128,7 +112,6 @@
           </span>
           <%= f.collection_select(:domestichoge, DomesticFeed.all, :price, :name, {class:"select-box", id:"item-domestic-feed"}) %>
         </div>
-
         <div class="price-content">
           <div class="price-text">
             <span>仕入価格</span>
@@ -137,7 +120,6 @@
           <span class="sell-yen">¥</span>
           <%= f.text_field :purchase_price, class:"price-input", id:"item-purchase_price", placeholder:"自動計算されます" %>
         </div>
-
         <div class="price-content">
           <span>販売手数料率</span>
           <span>
@@ -145,7 +127,6 @@
           </span>
           <%= f.collection_select(:commissionhoge, Commission.all, :percent, :name, {class:"select-box", id:"item-commission"}) %>
         </div>
-
         <div class="price-content">
           <div class="price-text">
             <span>販売価格</span>
@@ -154,19 +135,16 @@
           <span class="sell-yen">¥</span>
           <%= f.text_field :selling_price, class:"price-input", id:"item-selling_price", placeholder:"例）300" %>
         </div>
-        
         <div class="price-content">
           <span>販売手数料</span>
           <span>
             <span id='price-text'></span>円
         </div>
-
         <div class="price-content">
           <span>販売利益</span>
           <span>
             <span id='profit'></span>円
         </div>
-
         <div class="price-content">
           <span>利益率</span>
           <span>
@@ -175,9 +153,7 @@
         </span>
       </div>
     </div>
-    <%# /販売価格 %>
 
-    <%# 注意書き %>
     <div class="caution">
       <button type="button" class="btn btn-danger">注意</button>
       <p class="sentence">
@@ -187,13 +163,13 @@
         メーカー送料及び販売送料は商品重量とサイズによって概算した送料であり、実際の発生する送料ではないですので、ご注意ください。
       </p>
     </div>
-    <%# /注意書き %>
-    <%# 下部ボタン %>
+
+
     <div class="sell-btn-contents">
       <%= f.submit "商品を登録する" ,class:"sell-btn" %>
       <%=link_to 'もどる', root_path, class:"back-btn" %>
     </div>
-    <%# /下部ボタン %>
+
   </div>
   <% end %>
 

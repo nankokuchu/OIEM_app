@@ -78,7 +78,6 @@
 .input-name-wrap {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
 }
 
 .input-name {

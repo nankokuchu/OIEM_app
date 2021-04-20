@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :orders
+  has_many :kaigai_orders
+  has_many :kaigai_order_cansels
+  has_many :kaigai_order_pay
+  has_many :invoices
 
   with_options presence: true do
     # ひらがな、カタカナ、漢字のみ許可する

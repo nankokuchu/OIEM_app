@@ -1,75 +1,108 @@
 <%= render "shared/header" %>
 
-<%# 商品の概要 %>
 <div class="item-show">
   <div class="item-box">
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
     </div>
-
-    <%= form_with model: @order, local: true do |f| %>
-    <%= render 'shared/error_messages', model: f.object %> 
-      <div class="new-items">
-        <div class="weight-bold-text">
-          発注数
-          <span class="indispensable">必須</span>
+    <% if @order.order_cancel.present? %>
+      <div class="container mt-4">
+        <div class="p-3 mb-4 bg-danger text-white font-weight-bold text-center ">
+          こちらの発注はキャンセルされています
         </div>
-        <%= f.text_field :quantity, class:"items-text", id:"item-order-quantity", placeholder:"半角数値を入れてください" %>
-        <div class="weight-bold-text">
-          発注金額
-          <span class="indispensable">必須</span>
-        </div>
-        <%= f.text_field :price, class:"items-text", id:"item-order-price", placeholder:"発注数を入力すると自動で計算されます" %>
-        <div class="weight-bold-text">
-          メーカー発注番号
-          <span class="indispensable">必須</span>
-        </div>
-        <%= f.text_field :order_number, class:"items-text", id:"item-order-order-number", placeholder:"メーカー発注番号を貼り付けてください" %>
-        <div class="price-content">
-          <span>倉庫に到着確認</span>
-          <span>
-            <span id='add-tax-price'></span>
-          </span>
-        <%= f.collection_select(:arrival_status_id, ArrivalStatus.all, :id, :name, {class:"select-box", id:"order-arrival_status"}) %>
       </div>
-    </div>
-    <%= f.text_field :item_id, type: "hidden", value: @item.id %>
-    <%= f.submit "修正する" ,class:"item-red-btn" %>
-    <%= f.text_field :order_status_id, type: "hidden", value: 2 %>
-    <%= f.text_field :invoice_status_id, type: "hidden", value: 1 %>
-    <%= f.text_field :arrival_status_id, type: "hidden", value: 1 %>
-    
-<% end %>
-    <div class="item-explain-box">
-      <span><%= "商品詳細" %></span>
-    </div>
-    <table class="detail-table">
-      <tbody>
-        <tr>
-          <th class="detail-item">商品名【日本語】</th>
-          <td class="detail-value"><%= @item.jp_name %></td>
-        </tr>
-        <tr>
-          <th class="detail-item">商品仕入価格</th>
-          <td class="detail-value"><%= @item.purchase_price %>円</td>
-        </tr>
-        <tr>
-          <th class="detail-item">商品在庫数</th>
-          <td class="detail-value"><%= @item.stock_quantity %></td>
-        </tr>
-        <tr>
-          <th class="detail-item">仕入先商品購入ページ</th>
-          <td class="detail-value">
-          <%= link_to '仕入先商品購入ページ', @item.manufacture_url, :target=>["_blank"] %>
-          </td>
-        <tr>
-          <th class="detail-item">商品項目選択肢</th>
-          <td class="detail-value"><%= @item.item_selection %></td>
-        </tr>
-        <tr>
-          <th class="detail-item">メーカー商品項目選択肢</th>
-          <td class="detail-value"><%= @item.manufacture_item_selection %></td>
-        </tr>
-      </tbody>
+      <div class="item-explain-box">
+        <span><%= "発注詳細" %></span>
+      </div>
+      <table class="detail-table">
+        <tbody>
+          <tr>
+            <th class="detail-item">発注数</th>
+            <td class="detail-value"><%= @order.quantity %></td>
+          </tr>
+          <tr>
+            <th class="detail-item">発注金額</th>
+            <td class="detail-value"><%= @order.total_price %>円</td>
+          </tr>
+          <tr>
+            <th class="detail-item">メーカー発注番号</th>
+            <td class="detail-value"><%= @order.order_number %></td>
+          </tr>
+        </tbody>
+      </table>
+    <% else %>
+      <%= form_with model: @order, local: true do |f| %>
+      <%= render 'shared/error_messages', model: f.object %> 
+        <div class="new-items">
+          <div class="weight-bold-text">
+            発注数
+            <span class="indispensable">必須</span>
+          </div>
+          <%= f.text_field :quantity, class:"items-text", id:"item-order-quantity", placeholder:"半角数値を入れてください" %>
+          <div class="weight-bold-text">
+            発注金額
+            <span class="indispensable">必須</span>
+          </div>
+          <%= f.text_field :total_price, class:"items-text", id:"item-order-price", placeholder:"発注数を入力すると自動で計算されます" %>
+          <div class="weight-bold-text">
+            メーカー発注番号
+            <span class="indispensable">必須</span>
+          </div>
+          <%= f.text_field :order_number, class:"items-text", id:"item-order-order-number", placeholder:"メーカー発注番号を貼り付けてください" %>
+        </div>
+      </div>
+      <%= f.text_field :item_id, type: "hidden", value: @item.id %>
+      <%= f.submit "修正する" ,class:"item-red-btn" %>
+      <%= f.text_field :order_status_id, type: "hidden", value: 2 %>
+      <%= f.text_field :invoice_status_id, type: "hidden", value: 1 %>
+      <% end %>
+      <div class="container mb-20">
+        <div class="container">
+          <div class="container mt-2">
+            <div class="p-3 mb-2 bg-danger text-white font-weight-bold text-center ">
+              発送依頼を修正することはできません</br>
+              修正する場合、発送依頼をキャンセルしてください</br>
+              キャンセルされている発送依頼は戻すことはできません</br>
+            </div>
+          </div>
+          <div class="container mb-4">
+            <%= form_with model: @order_cancel, url: order_cancel_create_order_path(@order.id), local: true do |f| %>
+              <%= f.submit "オーダーをキャンセルする", class: "btn btn-dark" %>
+            <% end %>
+          </div>
+        </div>  
+      </div>
+    <% end %>
+  <div class="item-explain-box">
+    <span><%= "商品詳細" %></span>
+  </div>
+  <table class="detail-table">
+    <tbody>
+      <tr>
+        <th class="detail-item">商品名【日本語】</th>
+        <td class="detail-value"><%= @item.jp_name %></td>
+      </tr>
+      <tr>
+        <th class="detail-item">商品仕入価格</th>
+        <td class="detail-value"><%= @item.purchase_price %>円</td>
+      </tr>
+      <tr>
+        <th class="detail-item">商品在庫数</th>
+        <td class="detail-value"><%= @item.stock_quantity %></td>
+      </tr>
+      <tr>
+        <th class="detail-item">仕入先商品購入ページ</th>
+        <td class="detail-value">
+        <%= link_to '仕入先商品購入ページ', @item.manufacture_url, :target=>["_blank"] %>
+        </td>
+      <tr>
+        <th class="detail-item">商品項目選択肢</th>
+        <td class="detail-value"><%= @item.item_selection %></td>
+      </tr>
+      <tr>
+        <th class="detail-item">メーカー商品項目選択肢</th>
+        <td class="detail-value"><%= @item.manufacture_item_selection %></td>
+      </tr>
+    </tbody>
   </table>
 </div>

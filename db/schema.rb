@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_063623) do
+ActiveRecord::Schema.define(version: 2021_04_19_115252) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -33,11 +33,34 @@ ActiveRecord::Schema.define(version: 2021_04_14_063623) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "postal_code", null: false
+    t.integer "prefecture_id", null: false
+    t.string "city", null: false
+    t.string "house_number", null: false
+    t.string "building_name"
+    t.string "phone_number", null: false
+    t.bigint "kaigai_order_pay_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["kaigai_order_pay_id"], name: "index_addresses_on_kaigai_order_pay_id"
+  end
+
   create_table "infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "info_order_tracking_number", null: false
     t.string "info_order_weight", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "invoices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "invoice_name", null: false
+    t.bigint "user_id"
+    t.bigint "kaigai_order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["kaigai_order_id"], name: "index_invoices_on_kaigai_order_id"
+    t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -63,6 +86,49 @@ ActiveRecord::Schema.define(version: 2021_04_14_063623) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "kaigai_order_cancels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "kaigai_order_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["kaigai_order_id"], name: "index_kaigai_order_cancels_on_kaigai_order_id"
+    t.index ["user_id"], name: "index_kaigai_order_cancels_on_user_id"
+  end
+
+  create_table "kaigai_order_overs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "kaigai_order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["kaigai_order_id"], name: "index_kaigai_order_overs_on_kaigai_order_id"
+  end
+
+  create_table "kaigai_order_pays", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "kaigai_order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["kaigai_order_id"], name: "index_kaigai_order_pays_on_kaigai_order_id"
+    t.index ["user_id"], name: "index_kaigai_order_pays_on_user_id"
+  end
+
+  create_table "kaigai_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "kaigai_order_name", null: false
+    t.string "kaigai_order_weight", null: false
+    t.integer "kaigai_order_price", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_kaigai_orders_on_user_id"
+  end
+
+  create_table "kaigai_trackings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "number", null: false
+    t.bigint "kaigai_order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["kaigai_order_id"], name: "index_kaigai_trackings_on_kaigai_order_id"
+  end
+
   create_table "manages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "order_tracking_number", null: false
     t.string "order_weight", null: false
@@ -72,8 +138,26 @@ ActiveRecord::Schema.define(version: 2021_04_14_063623) do
     t.index ["order_id"], name: "index_manages_on_order_id"
   end
 
+  create_table "order_cancels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_order_cancels_on_order_id"
+  end
+
+  create_table "order_kaigai_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "kaigai_order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["kaigai_order_id"], name: "index_order_kaigai_orders_on_kaigai_order_id"
+    t.index ["order_id"], name: "index_order_kaigai_orders_on_order_id"
+  end
+
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "price", null: false
+    t.string "order_name", null: false
+    t.integer "item_price", null: false
+    t.integer "total_price", null: false
     t.integer "quantity", null: false
     t.integer "order_number", null: false
     t.integer "invoice_status_id", null: false
@@ -113,8 +197,20 @@ ActiveRecord::Schema.define(version: 2021_04_14_063623) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "kaigai_order_pays"
+  add_foreign_key "invoices", "kaigai_orders"
+  add_foreign_key "invoices", "users"
   add_foreign_key "items", "users"
+  add_foreign_key "kaigai_order_cancels", "kaigai_orders"
+  add_foreign_key "kaigai_order_cancels", "users"
+  add_foreign_key "kaigai_order_overs", "kaigai_orders"
+  add_foreign_key "kaigai_order_pays", "kaigai_orders"
+  add_foreign_key "kaigai_order_pays", "users"
+  add_foreign_key "kaigai_orders", "users"
+  add_foreign_key "kaigai_trackings", "kaigai_orders"
   add_foreign_key "manages", "orders"
+  add_foreign_key "order_cancels", "orders"
+  add_foreign_key "order_kaigai_orders", "kaigai_orders"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
   add_foreign_key "tracking_numbers", "orders"
