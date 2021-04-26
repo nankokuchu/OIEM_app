@@ -39,7 +39,7 @@ class KaigaiOrdersController < ApplicationController
       render :kaigai_ship
     end
   end
-  
+
   def show
     @orders = @kaigai_order.orders
   end
@@ -56,7 +56,8 @@ class KaigaiOrdersController < ApplicationController
   private
 
   def kaigai_params
-    params.require(:kaigai_order).permit(:kaigai_order_name, :kaigai_order_price, :kaigai_order_weight, { order_ids: [] }).merge(user_id: current_user.id)
+    params.require(:kaigai_order).permit(:kaigai_order_name, :kaigai_order_price, :kaigai_order_weight,
+                                         { order_ids: [] }).merge(user_id: current_user.id)
   end
 
   def set_kaigai_orders
@@ -68,8 +69,6 @@ class KaigaiOrdersController < ApplicationController
   end
 
   def move_to_mypage
-    if authenticate_user! && current_user.id != @kaigai_order.user_id
-      redirect_to user_path(current_user.id)
-    end
+    redirect_to user_path(current_user.id) if authenticate_user! && current_user.id != @kaigai_order.user_id
   end
 end

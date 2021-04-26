@@ -1,5 +1,4 @@
 class TrackingNumbersController < ApplicationController
-  
   before_action :set_to_order_index_create, only: [:index, :create]
   before_action :set_to_order_update, only: [:update]
   before_action :move_to_root, only: [:index, :create, :update]
@@ -52,8 +51,6 @@ class TrackingNumbersController < ApplicationController
   end
 
   def move_to_root
-    if authenticate_user! && current_user.id != @order.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path if authenticate_user! && current_user.id != @order.user_id
   end
 end

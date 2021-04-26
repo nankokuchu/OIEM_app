@@ -37,10 +37,10 @@ class KaigaiOrderPaysController < ApplicationController
       currency: 'jpy'
     )
   end
-  
+
   def move_to_index
-    if authenticate_user! && (current_user.id != @kaigai_order.user_id || @kaigai_order.kaigai_order_pay.present?|| @kaigai_order.kaigai_order_cancel.present?)
-      redirect_to root_path 
+    if authenticate_user! && (current_user.id != @kaigai_order.user_id || @kaigai_order.kaigai_order_pay.present? || @kaigai_order.kaigai_order_cancel.present?)
+      redirect_to root_path
     end
   end
 end

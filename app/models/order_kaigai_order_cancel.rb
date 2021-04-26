@@ -1,5 +1,4 @@
 class OrderKaigaiOrderCancel
-
   include ActiveModel::Model
   attr_accessor :arrival_status_id, :user_id, :kaigai_order_id
 

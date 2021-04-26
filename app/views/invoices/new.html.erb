@@ -57,41 +57,48 @@
     </div>
   <div class="container mb-5">
     <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>name(商品名)</th>
-        <th>material(材質)</th>
-        <th>quantity(数量)</th>
-        <th>price(単価)JPY</th>
-        <th>Total Amount(合計額)JPY</th>
-      </tr>
-    </thead>
-    <tbody>
-    <%= form_with model: @invoice, url: kaigai_order_invoices_path(@kaigai_order.id), local: true do |f| %>
-      <% @orders.each do |order|%>
+      <thead>
         <tr>
-        <td><%= order.item.eng_name %></td>
-        <td><%= order.item.eng_material %></td>
-        <td><%= f.text_field :invoice_quantity, id:"invoice-quantity", value: order.quantity%></td>
-        <td><%= f.text_field :invoice_price, id:"invoice-price", value: order.item_price %></td>
-        <td><%= f.text_field :invoice_ttotal_price, id:"invoice-item-total-price", value: order.total_price %>JPY</td>
+          <th>name(商品名)</th>
+          <th>material(材質)</th>
+          <th>quantity(数量)</th>
+          <th>price(単価)JPY</th>
+          <th>Total Amount(合計額)JPY</th>
+          <th>修正</th>
         </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order|%>
+          <%= form_with model: @order_invoice, url: order_invoice_update_invoice_path(order.order_invoice.id), local: true do |fi| %>
+            <tr>
+              <td><%= fi.text_field :order_invoice_item_name, id:"invoice-name", value: order.order_invoice.order_invoice_item_name %></td>
+              <td><%= fi.text_field :order_invoice_item_material, id:"invoice-material", value: order.order_invoice.order_invoice_item_material %></td>
+              <td><%= fi.text_field :order_invoice_item_quantity, id:"invoice-quantity", value: order.order_invoice.order_invoice_item_quantity %></td>
+              <td><%= fi.text_field :order_invoice_item_price, id:"invoice-price", value: order.order_invoice.order_invoice_item_price %></td>
+              <td><%= fi.text_field :invoice_ttotal_price, id:"invoice-item-total-price", value: order.order_invoice.order_invoice_item_quantity * order.order_invoice.order_invoice_item_price %>JPY</td>
+              <td><%= fi.submit "修正する", class: "btn btn-warning"%></td>
+            </tr>
+          <% end %>
         <% end %>
-    </tbody>
-      
-</table>
-
-  
+      </tbody>
+    </table>
   </div>
+<%= form_with model: @invoice, url: kaigai_order_invoices_path(@kaigai_order.id), local: true do |f| %>
   <div class="container border border-dark mb-5 d-flex ">
-  <div class="container mt-1 mb-1">
-  Total Amount(合計額)JPY
+    <div class="container mt-1 mb-1">
+      Total Amount(合計額)JPY
+    </div>
+    <div class="container mt-1 mb-1">
+      <td>
+        <% sum = 0 %>
+        <% @orders.each do |order|%>
+          <% sum += order.order_invoice.order_invoice_item_price * order.order_invoice.order_invoice_item_quantity %>
+        <% end%>
+        <%= sum %> JPY
+      </td>
+    </div>
   </div>
-  <div class="container mt-1 mb-1">
-  <td><%= f.text_field :invoice_total_price, id:"invoice-item-total-price"%>JPY</td>
-  </div>
-  </div>
-  <%= f.text_field :invoice_name, value: "invoice-#{@kaigai_order.kaigai_order_name}",type: "hidden" id:"invoice-item-total-price"%>
+  <%= f.text_field :invoice_name, value: "invoice-#{@kaigai_order.kaigai_order_name}",type: "hidden" %>
   <%= f.submit "登録する", class: "btn btn-warning"%>
   <% end %>
 </div>

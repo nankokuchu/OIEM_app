@@ -1,6 +1,6 @@
 class ManagesController < ApplicationController
   before_action :move_to_index
-  
+
   def m_new_item
     @m_new_orders = Order.where(arrival_status_id: 1).includes(:user)
     @infos = Info.all
@@ -56,8 +56,10 @@ class ManagesController < ApplicationController
   end
 
   private
+
   def manage_order_params
-    params.require(:manage_order).permit(:order_tracking_number, :order_weight, :arrival_status_id).merge(order_id: params[:order_id])
+    params.require(:manage_order).permit(:order_tracking_number, :order_weight,
+                                         :arrival_status_id).merge(order_id: params[:order_id])
   end
 
   def kaigai_tracking_number_params
@@ -65,8 +67,6 @@ class ManagesController < ApplicationController
   end
 
   def move_to_index
-    if authenticate_user! && current_user.id != 1
-      redirect_to root_path
-    end
+    redirect_to root_path if authenticate_user! && current_user.id != 1
   end
 end

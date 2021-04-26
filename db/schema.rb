@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_115252) do
+ActiveRecord::Schema.define(version: 2021_04_26_061955) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -145,6 +145,17 @@ ActiveRecord::Schema.define(version: 2021_04_19_115252) do
     t.index ["order_id"], name: "index_order_cancels_on_order_id"
   end
 
+  create_table "order_invoices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "order_invoice_item_name"
+    t.integer "order_invoice_item_price"
+    t.string "order_invoice_item_material"
+    t.integer "order_invoice_item_quantity"
+    t.bigint "order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_order_invoices_on_order_id"
+  end
+
   create_table "order_kaigai_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "kaigai_order_id"
@@ -159,7 +170,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_115252) do
     t.integer "item_price", null: false
     t.integer "total_price", null: false
     t.integer "quantity", null: false
-    t.integer "order_number", null: false
+    t.string "order_number", null: false
     t.integer "invoice_status_id", null: false
     t.integer "arrival_status_id", null: false
     t.bigint "user_id"
@@ -210,6 +221,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_115252) do
   add_foreign_key "kaigai_trackings", "kaigai_orders"
   add_foreign_key "manages", "orders"
   add_foreign_key "order_cancels", "orders"
+  add_foreign_key "order_invoices", "orders"
   add_foreign_key "order_kaigai_orders", "kaigai_orders"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"

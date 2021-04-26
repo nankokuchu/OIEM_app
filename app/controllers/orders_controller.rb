@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:items_order).permit(:order_name, :total_price, :item_price, :quantity, :order_number, :invoice_status_id, :arrival_status_id).merge(
+    params.require(:items_order).permit(:order_name, :total_price, :item_price, :quantity, :order_number, :invoice_status_id, :arrival_status_id, :order_invoice_item_name, :order_invoice_item_material, :order_invoice_item_price).merge(
       user_id: current_user.id, item_id: params[:item_id]
     )
   end
@@ -84,5 +84,4 @@ class OrdersController < ApplicationController
   def move_to_root
     redirect_to root_path if authenticate_user! && @item.user_id != current_user.id
   end
-
 end

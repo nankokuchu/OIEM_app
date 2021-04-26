@@ -70,11 +70,11 @@
       <tbody>
         <% @orders.each do |order|%>
           <tr>
-            <td><%= order.item.eng_name %></td>
-            <td><%= order.item.eng_material %></td>
-            <td><%= order.quantity %></td>
-            <td><%= order.item_price %></td>
-            <td><%= order.total_price %> JPY</td>
+            <td><%= order.order_invoice.order_invoice_item_name %></td>
+            <td><%= order.order_invoice.order_invoice_item_material %></td>
+            <td><%= order.order_invoice.order_invoice_item_quantity %></td>
+            <td><%= order.order_invoice.order_invoice_item_price %></td>
+            <td><%= order.order_invoice.order_invoice_item_quantity * order.order_invoice.order_invoice_item_price %> JPY</td>
           </tr>
         <% end %> 
       </tbody>
@@ -84,11 +84,11 @@
             <p class="text-right text-wrap">Total Amount(合計額)JPY</p>
           </td>
           <td colspan="1">
-            <% @sum = 0 %>
+            <% sum = 0 %>
             <% @orders.each do |order| %> 
-              <% @sum += order.total_price.to_i %>
+              <% sum += order.order_invoice.order_invoice_item_price * order.order_invoice.order_invoice_item_quantity %>
             <% end %>
-            <%= @sum %> JPY
+            <%= sum %> JPY
           <td>
         </tr>
       </thead>

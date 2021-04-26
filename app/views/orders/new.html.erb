@@ -32,6 +32,9 @@
     <%= f.text_field :order_status_id, type: "hidden", value: 2 %>
     <%= f.text_field :invoice_status_id, type: "hidden", value: 1 %>
     <%= f.text_field :arrival_status_id, type: "hidden", value: 1 %>
+    <%= f.text_field :order_invoice_item_name, type: "hidden", value: @item.eng_name, id:"order-invoice-item-name" %>
+    <%= f.text_field :order_invoice_item_material, type: "hidden", value: @item.eng_material, id:"order-invoice-item-material" %>
+    <%= f.text_field :order_invoice_item_price, type: "hidden", value: @item.purchase_price, id:"order-invoice-item-price" %>
     <% end %>
     <div class="item-explain-box">
       <span><%= "商品詳細" %></span>

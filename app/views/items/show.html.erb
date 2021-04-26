@@ -81,3 +81,46 @@
     </table>
   </div>
   <%# /商品の概要 %>
+<div class="container">
+  <div class='item-contents'>
+    <h2 class='title text-muted'>発注履歴</h2>
+  </div> 
+  <div class="container">
+    <div class="container">
+      <table class="table table-striped">
+        <thead class="bg-info">
+          <tr>
+            <th scope="col">発注日付</th>
+            <th scope="col">発注数量</th>
+            <th scope="col">状態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order|%>
+            <tr>
+              <td><%= l order.created_at %></td>
+              <td><%= order.quantity %></td>
+              <td>
+                <% if order.order_cancel.present? %>
+                  キャンセル済
+                <% elsif order.order_kaigai_orders.present? %>
+                  <% order.order_kaigai_orders.each do |order_status|%>
+                    <% if order_status.kaigai_order.kaigai_order_cancel.present? %>
+                      キャンセルずみ
+                    <% elsif order_status.kaigai_order.kaigai_order_over.present? %>
+                      理済み
+                    <% else %>
+                      処理中
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  処理中
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>  

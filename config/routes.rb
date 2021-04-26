@@ -61,5 +61,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :invoices, only:[:show]
+  resources :invoices, only:[:show] do
+    member do
+      post 'order_invoice_update'
+    end
+  end
+    
 end
