@@ -13,5 +13,5 @@ class KaigaiOrder < ApplicationRecord
     validates :kaigai_order_weight
   end
 
-  validates :kaigai_order_price, numericality: true, inclusion: { in: 0..9_999_999 }, format: { with: /\A[0-9]+\z/ }
+  validates :kaigai_order_price, numericality: true, inclusion: { in: 1..9_999_999 }, format: { with: /\A[0-9]+\z/ }
 end

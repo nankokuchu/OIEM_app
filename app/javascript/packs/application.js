@@ -9,6 +9,8 @@ require("@rails/activestorage").start()
 require("channels")
 require("../price")
 require("../kaigai_order_pay")
+require("../order_price")
+require("../kaigai_order_weight")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

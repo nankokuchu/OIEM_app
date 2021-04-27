@@ -75,7 +75,7 @@
               <td><%= fi.text_field :order_invoice_item_material, id:"invoice-material", value: order.order_invoice.order_invoice_item_material %></td>
               <td><%= fi.text_field :order_invoice_item_quantity, id:"invoice-quantity", value: order.order_invoice.order_invoice_item_quantity %></td>
               <td><%= fi.text_field :order_invoice_item_price, id:"invoice-price", value: order.order_invoice.order_invoice_item_price %></td>
-              <td><%= fi.text_field :invoice_ttotal_price, id:"invoice-item-total-price", value: order.order_invoice.order_invoice_item_quantity * order.order_invoice.order_invoice_item_price %>JPY</td>
+              <td><%= fi.text_field :invoice_ttotal_price, id:"invoice-item-total-price", value: order.order_invoice.order_invoice_item_quantity * order.order_invoice.order_invoice_item_price, readonly:"readonly" %>JPY</td>
               <td><%= fi.submit "修正する", class: "btn btn-warning"%></td>
             </tr>
           <% end %>

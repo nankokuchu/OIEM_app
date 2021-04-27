@@ -34,26 +34,30 @@
               <td><%= link_to "詳細確認", edit_order_path(order.id)%></td>
               <td><%= order.quantity %></td>
               <td><%= link_to order.tracking_number.number, order_tracking_numbers_path(order.id) %></td>
-              <td><%= order.manage.order_weight %>kg</td>
+              <td>
+                <div class="form-check">
+                  <input class="checkbox-hidden", name="order-weight", type="checkbox", value=<%= order.manage.order_weight %> checked="checked"><%= order.manage.order_weight %>kg
+                </div>
+              </td>
             </tr>
           <% end %>
         </tbody>
         <thead >
           <tr>
             <td colspan="7">
-              <p class="text-right text-wrap">貨物の総重量</p>
+              <p class="text-right text-wrap">貨物の総重量(kg)</p>
             </td>
             <td>
-            <%= f.text_field :kaigai_order_weight, class:"items-text kaigai_order_weight", id:"kaigai-order-weight" %>
+            <%= f.text_field :kaigai_order_weight, class:"items-text kaigai_order_weight", id:"kaigai-order-weight", readonly:"readonly" %>
           </tr>
         </thead>
         <thead >
           <tr>
             <td colspan="7">
-              <p class="text-right text-wrap">送料</p>
+              <p class="text-right text-wrap">送料(円)</p>
             </td>
             <td>
-            <%= f.text_field :kaigai_order_price, class:"items-text kaigai_order_price", id:"kaigai-order-price" %>
+            <%= f.text_field :kaigai_order_price, class:"items-text kaigai_order_price", id:"kaigai-order-price", readonly:"readonly" %>
           </tr>
         </thead> 
         <thead >

@@ -5,15 +5,18 @@ class ItemsOrder
 
   with_options presence: true do
     validates :order_name
-    validates :total_price
-    validates :item_price
-    validates :quantity
     validates :user_id
     validates :item_id
     validates :order_number
     validates :order_invoice_item_name
     validates :order_invoice_item_material
     validates :order_invoice_item_price
+  end
+
+  with_options numericality: true, format: { with: /\A[0-9]+\z/ } do
+    validates :total_price
+    validates :item_price
+    validates :quantity
   end
 
   def save

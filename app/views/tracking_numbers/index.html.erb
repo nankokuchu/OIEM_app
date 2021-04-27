@@ -29,39 +29,51 @@
 
 
   <div class="container border border-primary">
-  <% unless @order.tracking_number.present? %>
+  <% if @order.manage.present? %>
     <div class="container mt-2">
       <div class="p-3 mb-2 bg-danger text-white font-weight-bold text-center ">
-        現在、追跡番号を登録されていません！！
+        現在、登録している追跡番号は！！(修正できません)
       </div>
-      <div class="container">
-        <%= form_with model: @tracking_number, url: order_tracking_numbers_path, method: :post, local: true do |f| %>
-        <%= render 'shared/error_messages', model: f.object %> 
-        <div class="container tracking-container d-flex justify-content-center mb-3 mt-5">
-          <%= f.text_field :number, class:"tracking-form-control form-control form-control-lg", id:"order-tracking-number", placeholder:"追跡番号を貼り付けてください" %>
-          <%= f.submit "登録/編集する", class:"tracking-btn btn btn-success ml-5" %>
+      <div class="p-3 mb-2 font-weight-bold text-center ">
+        <%= @order.tracking_number.number %>
+      </div>
+    </div>  
+  <% else %>
+    <% unless @order.tracking_number.present? %>
+      <div class="container mt-2">
+        <div class="p-3 mb-2 bg-danger text-white font-weight-bold text-center ">
+          現在、追跡番号を登録されていません！！
         </div>
-        <% end %>
-      </div>  
-    </div>
-    <% else %>
-    <div class="container mt-2">
-      <div class="p-3 mb-2 bg-danger text-white font-weight-bold text-center ">
-        現在、登録している追跡番号は！！
+        <div class="container">
+          <%= form_with model: @tracking_number, url: order_tracking_numbers_path, method: :post, local: true do |f| %>
+          <%= render 'shared/error_messages', model: f.object %> 
+          <div class="container tracking-container d-flex justify-content-center mb-3 mt-5">
+            <%= f.text_field :number, class:"tracking-form-control form-control form-control-lg", id:"order-tracking-number", placeholder:"追跡番号を貼り付けてください" %>
+            <%= f.submit "登録/編集する", class:"tracking-btn btn btn-success ml-5" %>
+          </div>
+          <% end %>
+        </div>  
       </div>
-      <div class="container">
-      <%= form_with model: @tracking_number, url: tracking_number_path(@tracking_number.id), method: :patch, local: true do |f| %>
-      <%= render 'shared/error_messages', model: f.object %> 
-      <div class="container tracking-container d-flex justify-content-center mb-3 mt-5">
+    <% else %>
+      <div class="container mt-2">
+        <div class="p-3 mb-2 bg-danger text-white font-weight-bold text-center ">
+          現在、登録している追跡番号は！！
+        </div>
+        <div class="container">
+          <%= form_with model: @tracking_number, url: tracking_number_path(@tracking_number.id), method: :patch, local: true do |f| %>
+          <%= render 'shared/error_messages', model: f.object %> 
+        <div class="container tracking-container d-flex justify-content-center mb-3 mt-5">
           <%= f.text_field :number, class:"tracking-form-control form-control form-control-lg", id:"order-tracking-number", placeholder:"追跡番号を貼り付けてください" %>
           <%= f.text_field :order_id, type: "hidden", value: @order.id %>
           <%= f.text_field :arrival_status_id, type: "hidden", value: 1 %>
           <%= f.submit "登録/編集する", class:"tracking-btn btn btn-success ml-5" %>
         </div>
-      <% end %>
+    <% end %>
       </div>
     </div>
   <% end %>
+  <% end %>
+  
   </div>
 
 

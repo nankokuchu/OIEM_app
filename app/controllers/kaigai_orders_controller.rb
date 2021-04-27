@@ -50,6 +50,8 @@ class KaigaiOrdersController < ApplicationController
     if @kaigai_order.valid?
       @kaigai_order.save
       redirect_to kaigai_orders_path
+    else
+      render 'orders/processing'
     end
   end
 

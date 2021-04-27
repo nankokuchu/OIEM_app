@@ -1,7 +1,7 @@
 ja:
   time:
     formats:
-      default: "%Y/%m/%d %H:%M:%S"
+      default: "%Y-%m-%d %H:%M:%S"
   activerecord:
     attributes:
       user:
@@ -24,3 +24,13 @@ ja:
         purchase_price: 仕入価格
         weight: 商品重量
         image: 商品画像
+        ppurchase_price: メーカー価格
+      order:
+        total_price: 発注金額 
+        quantity: 発注数
+        order_number: メーカー発注番号
+      tracking_number:
+        number: メーカー貨物追跡番号
+      kaigai_order:
+        kaigai_order_weight: 貨物重量
+        kaigai_order_price: 送料
