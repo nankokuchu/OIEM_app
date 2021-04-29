@@ -2,6 +2,7 @@
 <%= render "shared/header" %>
 <%= render "shared/user_nav_list"%>
 
+
 <div class="container">
   <div class="container d-flex justify-content-center p-3 mb-2 bg-info text-white">
     <h2>発注必要な商品リスト</h2>
@@ -20,7 +21,7 @@
       </thead>
       <tbody>
         <% @display_items.each do |item|%>
-          <% if item.stock_quantity <= item.stock_standard %>
+          <% if item.stock_quantity.to_i <= item.stock_standard.to_i %>
             <tr>
               <th scope="row">1</th>
               <td><%= image_tag item.image, class: "user-show-item-img" %></td>

@@ -22,24 +22,26 @@
         </thead>
         <tbody>
           <% @new_orders.each do |order| %>
-            <tr>
-              <td scope="row">
-                <div class="form-check">
-                  <input class="form-check-input", name="kaigai_order[order_ids][]", type="checkbox", value=<%= order.id %> checked="checked", id="flexCheckDefault">
-                </div>
-              </th>
-              <td><%=l order.created_at%></td>
-              <td><%= image_tag order.item.image, class: "order-index-item-img" %></td>
-              <td><%= link_to order.item.jp_name, item_path(order.item.id) %></td>
-              <td><%= link_to "詳細確認", edit_order_path(order.id)%></td>
-              <td><%= order.quantity %></td>
-              <td><%= link_to order.tracking_number.number, order_tracking_numbers_path(order.id) %></td>
-              <td>
-                <div class="form-check">
-                  <input class="checkbox-hidden", name="order-weight", type="checkbox", value=<%= order.manage.order_weight %> checked="checked"><%= order.manage.order_weight %>kg
-                </div>
-              </td>
-            </tr>
+            <% unless order.order_cancel.present? %>
+              <tr>
+                <td scope="row">
+                  <div class="form-check">
+                    <input class="form-check-input", name="kaigai_order[order_ids][]", type="checkbox", value=<%= order.id %> checked="checked", id="flexCheckDefault">
+                  </div>
+                </th>
+                <td><%=l order.created_at%></td>
+                <td><%= image_tag order.item.image, class: "order-index-item-img" %></td>
+                <td><%= link_to order.item.jp_name, item_path(order.item.id) %></td>
+                <td><%= link_to "詳細確認", edit_order_path(order.id)%></td>
+                <td><%= order.quantity %></td>
+                <td><%= link_to order.tracking_number.number, order_tracking_numbers_path(order.id) %></td>
+                <td>
+                  <div class="form-check">
+                    <input class="checkbox-hidden", name="order-weight", type="checkbox", value=<%= order.manage.order_weight %> checked="checked"><%= order.manage.order_weight %>kg
+                  </div>
+                </td>
+              </tr>
+            <% end %>
           <% end %>
         </tbody>
         <thead >

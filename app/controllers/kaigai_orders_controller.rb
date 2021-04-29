@@ -34,7 +34,11 @@ class KaigaiOrdersController < ApplicationController
   def kaigai_order_over_create
     @kaigai_order_over = KaigaiOrderOver.new(kaigai_order_id: params[:id])
     if @kaigai_order_over.save
-      redirect_to root_path
+      v_orders = @kaigai_order_over.kaigai_order.orders.includes(:item)
+      v_orders.each do |v_order|
+        v_order.item.update(order_status_id: 1)
+      end
+      redirect_to user_path(current_user.id)
     else
       render :kaigai_ship
     end
@@ -49,6 +53,8 @@ class KaigaiOrdersController < ApplicationController
     @kaigai_order = KaigaiOrder.new(kaigai_params)
     if @kaigai_order.valid?
       @kaigai_order.save
+      v_orders = @kaigai_order.orders
+      v_orders.update_all(arrival_status_id: 3)
       redirect_to kaigai_orders_path
     else
       render 'orders/processing'

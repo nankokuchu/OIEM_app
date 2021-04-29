@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :orders
   has_many :kaigai_orders
   has_many :kaigai_order_cansels
-  has_many :kaigai_order_pay
+  has_many :kaigai_order_pays
   has_many :invoices
 
   with_options presence: true do
