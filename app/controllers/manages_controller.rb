@@ -67,6 +67,6 @@ class ManagesController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path if authenticate_user! && current_user.id != 1
+    redirect_to root_path if authenticate_user! && current_user.id != 4
   end
 end
