@@ -4,7 +4,7 @@
 OIEM_app (Order Invoice Easy Management)
 
 # 概要
-EC系の仕事あるいは、メルカリなどで出品しているユーザーの商品ことにコスト管理、発注先管理、インボイスが簡単に生成できて、中国からの物流を提供する。
+EC系の仕事あるいは、メルカリなどで出品しているユーザーの商品毎にコスト管理、発注先管理、インボイスが簡単に生成できて、中国からの物流を提供する。
 
 # 本番環境
 未定
@@ -141,14 +141,14 @@ EC系の仕事あるいは、メルカリなどで出品しているユーザー
 |kaigai_order_price           |integer    |null: false       |
 |user                         |references |foreign_key: true |
 ### Association
-  belongs_to :user
-  has_one :invoice
-  has_one :kaigai_tracking
-  has_one :kaigai_order_over
-  has_one :kaigai_order_cancel
-  has_one :kaigai_order_pay
-  has_many :order_kaigai_orders
-  has_many :orders, through: :order_kaigai_orders
+-　belongs_to :user
+- has_one :invoice
+- has_one :kaigai_tracking
+- has_one :kaigai_order_over
+- has_one :kaigai_order_cancel
+- has_one :kaigai_order_pay
+- has_many :order_kaigai_orders
+- has_many :orders, through: :order_kaigai_orders
 
 ## order_kaigai_orders
 |Column                       |Type       |Options           |

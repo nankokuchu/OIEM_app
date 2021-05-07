@@ -2,11 +2,13 @@
 <header class='top-page-header'>
   <div class='search-bar-contents'>
     <%= link_to image_tag("oiem-logo-color.png", class:"furima-icon"), root_path %>
-    <%= form_with url: search_items_path, local: true, method: :get, class:'search-form' do |f| %>
-      <%= f.text_field :keyword, placeholder: "キーワードから商品を探す", class: "input-box" %>
-      <button class="search-button">
-        <%= image_tag "search.png", class:"search-icon" %>
-      </button>
+      <% if user_signed_in? %>
+      <%= form_with url: search_items_path, local: true, method: :get, class:'search-form' do |f| %>
+        <%= f.text_field :keyword, placeholder: "キーワードから商品を探す", class: "input-box" %>
+        <button class="search-button">
+          <%= image_tag "search.png", class:"search-icon" %>
+        </button>
+      <% end %>
     <% end %>
   </div>
   <div class='nav'>
@@ -14,12 +16,21 @@
     </div>
     <ul class='lists-right'>
       <% if user_signed_in? %>
-        <li class="nav-item">
-          <%= link_to "マイページ", user_path(current_user.id), class: "nav-link active" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link active" %>
-        </li>
+        <% if current_user.id == 1 %>
+          <li class="nav-item">
+            <%= link_to "管理画面", manages_path, class: "nav-link active" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link active" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "マイページ", user_path(current_user.id), class: "nav-link active" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link active" %>
+          </li>
+        <% end %>
       <% else %>
         <li class="nav-item">
           <%= link_to 'ログイン', new_user_session_path, class: "nav-link active" %>

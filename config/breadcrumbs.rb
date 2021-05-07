@@ -46,3 +46,38 @@ crumb :new_item do
   link "商品新規登録ページ", new_item_path
   parent :mypage
 end
+
+crumb :item_shiping_items do
+  link "発注中商品一覧ページ", item_shiping_items_path
+  parent :mypage
+end
+
+crumb :item_hidden_items do
+  link "非表示商品一覧ページ", item_hidden_items_path
+  parent :mypage
+end
+
+crumb :kaigai_new_kaigai_orders do
+  link "新規発送依頼//支払い待ち一覧ページ", kaigai_new_kaigai_orders_path
+  parent :mypage
+end
+
+crumb :kaigai_invoice_kaigai_orders do
+  link "支払済/インボイス待ち一覧ページ", kaigai_invoice_kaigai_orders_path
+  parent :mypage
+end
+
+crumb :kaigai_ship_kaigai_orders do
+  link "海外発送待ち", kaigai_ship_kaigai_orders_path
+  parent :mypage
+end
+
+crumb :kaigai_sent_kaigai_orders do
+  link "処理済", kaigai_sent_kaigai_orders_path
+  parent :mypage
+end
+
+crumb :kaigai_cancel_kaigai_orders do
+  link "海外発送依頼キャンセル済", kaigai_cancel_kaigai_orders_path
+  parent :mypage
+end

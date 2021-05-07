@@ -13,13 +13,6 @@
         <li class="nav-item">
           <%= link_to "追跡番号登録", new_info_path, class: "nav-link active" %>
         </li>
-        <%
-=begin%>
- <li class="nav-item">
-          <%= link_to current_user.nickname, user_path(current_user.id), class: "nav-link active" %>
-        </li> 
-<%
-=end%>
         <li class="nav-item">
           <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link active" %>
         </li>

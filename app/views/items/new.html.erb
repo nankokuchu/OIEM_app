@@ -3,9 +3,7 @@
   <header class="items-sell-header">
     <%= link_to image_tag('oiem-logo-color.png' , size: '185x50'), items_path %>
   </header>
-
-  <h1>課題:コスト計算部分を部分テンプレートにする<h1>
-
+  
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
     <%= form_with model: @item, local: true do |f| %>
