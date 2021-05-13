@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :kaigai_order_cansels
   has_many :kaigai_order_pays
   has_many :invoices
+  has_many :exchange_rate_sets
+  has_many :transportation_expenses
 
   with_options presence: true do
     # ひらがな、カタカナ、漢字のみ許可する

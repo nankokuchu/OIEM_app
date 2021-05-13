@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const purchasePriceElement = document.getElementById('item-ppurchase_price')
   const itemWeightElement = document.getElementById('item-weight')
-  const rateElement = document.getElementById('item_ratehoge')
+  const rateElement = document.getElementById('item-exchange-rate')
   const overseaFeedElement = document.getElementById('item_overseahoge')
-  const domesticFeedElement = document.getElementById('item_domestichoge')
+  const domesticFeedElement = document.getElementById('item-domestic-feed')
   const buyPriceElement = document.getElementById( "item-purchase_price" )
 
   const commissionElement = document.getElementById('item_commissionhoge')

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_26_061955) do
+ActiveRecord::Schema.define(version: 2021_05_13_062636) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -44,6 +44,15 @@ ActiveRecord::Schema.define(version: 2021_04_26_061955) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["kaigai_order_pay_id"], name: "index_addresses_on_kaigai_order_pay_id"
+  end
+
+  create_table "exchange_rate_sets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "exchange_country_id", null: false
+    t.string "rate"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_exchange_rate_sets_on_user_id"
   end
 
   create_table "infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -189,6 +198,15 @@ ActiveRecord::Schema.define(version: 2021_04_26_061955) do
     t.index ["order_id"], name: "index_tracking_numbers_on_order_id"
   end
 
+  create_table "transportation_expenses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "price"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_transportation_expenses_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -209,6 +227,7 @@ ActiveRecord::Schema.define(version: 2021_04_26_061955) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "kaigai_order_pays"
+  add_foreign_key "exchange_rate_sets", "users"
   add_foreign_key "invoices", "kaigai_orders"
   add_foreign_key "invoices", "users"
   add_foreign_key "items", "users"
@@ -226,4 +245,5 @@ ActiveRecord::Schema.define(version: 2021_04_26_061955) do
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
   add_foreign_key "tracking_numbers", "orders"
+  add_foreign_key "transportation_expenses", "users"
 end

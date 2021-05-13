@@ -7,6 +7,21 @@ crumb :mypage do
   parent :root
 end
 
+crumb :sets do
+  link "設定", sets_path
+  parent :mypage
+end
+
+crumb :exchange_rate do
+  link "為替レート新規登録", new_exchange_rate_set_path
+  parent :sets
+end
+
+crumb :transportation_expenses do
+  link "新規国内送料登録", new_transportation_expense_path
+  parent :sets
+end
+
 crumb :orders do
   link "発注一覧ページ", orders_path
   parent :mypage

@@ -34,3 +34,9 @@ ja:
       kaigai_order:
         kaigai_order_weight: 貨物重量
         kaigai_order_price: 送料
+      transportation_expense:
+        name: ご利用発送方法
+        price: 送料
+      exchange_rate_set:
+        rate: 為替レート
+        exchange_country_id: 通貨

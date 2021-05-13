@@ -25,6 +25,9 @@
           </li>
         <% else %>
           <li class="nav-item">
+            <%= link_to "設定", sets_path, class: "nav-link active" %>
+          </li>
+          <li class="nav-item">
             <%= link_to "マイページ", user_path(current_user.id), class: "nav-link active" %>
           </li>
           <li class="nav-item">

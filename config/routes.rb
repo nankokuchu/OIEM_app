@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "homes#index"
   resources :users, only: :show
+  resources :sets, only: :index
+  resources :exchange_rate_sets, only: [:new, :create, :destroy, :edit, :update]
+  resources :transportation_expenses , only: [:new, :create, :destroy, :edit, :update]
 
   resources :manages, only: [:index] do
     collection do

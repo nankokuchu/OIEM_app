@@ -1,0 +1,91 @@
+<% breadcrumb :sets %>
+<%= render "shared/header" %>
+
+<div class="container mt-2 mb-5">
+  <div class="container mt-5 mb-5">
+    <p class="h1 text-center">設定</p>
+  </div>
+  <div class="container mt-5 mb-5">
+    <% if current_user.exchange_rate_sets.present? %>
+      <div class="container mt-2 mb-5">
+        <div class="container mb-3 d-flex">
+          <div class="p-2 bg-primary text-white mr-1">為替レート</div>
+          <%= button_to "追加", new_exchange_rate_set_path, {method: :get, class: "btn btn-danger"} %>
+        </div>
+        <div class="container mt-2">   
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>通貨為替</th>
+                <th>レート</th>
+                <th>更新</th>
+                <th>削除</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @exchange_rates.each do |exchange_rate| %>
+                <tr>
+                  <td><%= exchange_rate.exchange_country.country %></td>
+                  <td><%= exchange_rate.rate %></td>
+                  <td><%= button_to "更新", edit_exchange_rate_set_path(exchange_rate.id), {method: :get, class: "btn btn-secondary"} %></td>
+                  <td><%= button_to "削除", exchange_rate_set_path(exchange_rate.id), {method: :delete, class: "btn btn-secondary"} %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% else %>
+      <div class="container mt-2 mb-5">
+        <div class="container mt-5 mb-5">
+          <p class="h1 text-left">為替レートを設定をしていません</p>
+          <div class="container">
+            <%= button_to "設定する", new_exchange_rate_set_path, {method: :get, class: "btn btn-danger"} %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div> 
+
+  <div class="container mt-5 mb-5">
+    <% if current_user.transportation_expenses.present? %>
+      <div class="container mt-2 mb-5">
+        <div class="container mb-3 d-flex">
+          <div class="p-2 bg-primary text-white mr-1">国内発送方法</div>
+          <%= button_to "追加", new_transportation_expense_path, {method: :get, class: "btn btn-danger"} %>
+        </div>
+        <div class="container mt-2">   
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>発送方法</th>
+                <th>送料</th>
+                <th>更新</th>
+                <th>削除</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @transportation_expenses.each do |transportation_expense| %>
+                <tr>
+                  <td><%= transportation_expense.name %></td>
+                  <td><%= transportation_expense.price %></td>
+                  <td><%= button_to "更新", edit_transportation_expense_path(transportation_expense.id), {method: :get, class: "btn btn-secondary"} %></td>
+                  <td><%= button_to "削除", transportation_expense_path(transportation_expense.id), {method: :delete, class: "btn btn-secondary"} %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% else %>
+      <div class="container mt-2 mb-5">
+        <div class="container mt-5 mb-5">
+          <p class="h1 text-left">国内送料が設定されていません</p>
+          <div class="container">
+            <%= button_to "設定する", new_transportation_expense_path, {method: :get, class: "btn btn-danger"} %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div> 
+</div>

@@ -11,7 +11,6 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">番号</th>
           <th scope="col">商品イメージ</th>
           <th scope="col">商品名</th>
           <th scope="col">仕入れ先ページ</th>
@@ -23,7 +22,6 @@
         <% @display_items.each do |item|%>
           <% if item.stock_quantity.to_i <= item.stock_standard.to_i %>
             <tr>
-              <th scope="row">1</th>
               <td><%= image_tag item.image, class: "user-show-item-img" %></td>
               <td><%= link_to item.jp_name, item_path(item.id) %></td>
               <td><%= link_to "仕入先商品購入ページ", item.manufacture_url, method: :get, :target=>["_blank"] %></td>
