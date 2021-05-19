@@ -117,6 +117,16 @@ OIEM_app (Order Invoice Easy Management)
 [![Image from Gyazo](https://i.gyazo.com/f0bbe913f42409c48bb4ae036c9b9d7e.gif)](https://gyazo.com/f0bbe913f42409c48bb4ae036c9b9d7e)
 #### ユーザーが側でインボイスを作成する
 
+### ユーザーの発送依頼を発送する
+[![Image from Gyazo](https://i.gyazo.com/f59b2740b5878ad94a6a8f47041fd442.gif)](https://gyazo.com/f59b2740b5878ad94a6a8f47041fd442)
+#### ユーザー側で送料支払済且つインボイス作成済みの発送依頼は管理者側の「新規発送依頼」ページに表示される
+#### 発送完了後、追跡番号を登録する
+
+### ユーザー側で発送した貨物を追跡できるようにする
+[![Image from Gyazo](https://i.gyazo.com/f07c4a8e03a8b88bdc5e7ae91ce44c3a.gif)](https://gyazo.com/f07c4a8e03a8b88bdc5e7ae91ce44c3a)
+#### 管理者側で追跡番号を登録されている貨物はユーザー側で追跡出来雨ようにしている
+#### 貨物到着後、ユーザー側で商品をチェックして、問題なければ処理済みに変更して、取引が完了となる
+
 
 # 工夫したポイント
 - コストと利益の計算
