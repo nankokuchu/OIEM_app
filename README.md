@@ -38,6 +38,81 @@ OIEM_app (Order Invoice Easy Management)
 上記仕入れする際に生じることを一つのアプリで管理できるようにするため、アプリを作成した。
 
 # DEMO
+### トップページ
+[![Image from Gyazo](https://i.gyazo.com/6a598f9f077a4f88fe4a22c5488ee1cb.png)](https://gyazo.com/6a598f9f077a4f88fe4a22c5488ee1cb)
+#### ログインしているユーザーのトップページには、
+- 設定
+- マイページ
+- ログアウト
+が表示されている
+
+### 設定ページ
+[![Image from Gyazo](https://i.gyazo.com/e9fe833a0509067012ea1a14acdb07d9.gif)](https://gyazo.com/e9fe833a0509067012ea1a14acdb07d9)
+- ユーザーが毎に為替レートと国内発送方法の送料を設定することができる
+- 設定した為替レートと国内送料は商品登録する際にコスト計算をする際に利用する
+
+### マイページ
+[![Image from Gyazo](https://i.gyazo.com/dbacd123d8aae47d893075254b8ded0d.png)](https://gyazo.com/dbacd123d8aae47d893075254b8ded0d)
+#### マイページには、二つ部分に分かれている
+- 共通操作パーネル (共通操作パネルは商品管理、発注管理、発送依頼管理ができる)
+- 発注必要なリスト（商品アップする際に、商品発注基準値を設定することで、在庫数が基準値より少ない商品が表示される
+）
+
+### 商品管理パーネル
+[![Image from Gyazo](https://i.gyazo.com/400c0ef4a53190f5bda5c1fd1942dde7.gif)](https://gyazo.com/400c0ef4a53190f5bda5c1fd1942dde7)
+- 新規商品アップ
+- 商品一覧（ユーザーがアップした全ての商品のうち、非表示に設定しない商品が表示される）
+- 発注中商品一覧（現在発注している商品のみ表示される）
+- 非表示商品一覧（ユーザーが商品を非表示にした商品のみ表示させれる）
+
+### 新規商品登録
+[![Image from Gyazo](https://i.gyazo.com/260bcb9a273b4b8c2d8398a0b2203832.gif)](https://gyazo.com/260bcb9a273b4b8c2d8398a0b2203832)
+#### 商品をアップする際に、２回目以降の商品仕入れが簡単にするためのメーカー情報の記入と商品あたりコストをもっと把握しやすいように工夫した
+- 商品インボイス作成用の基本情報
+- 商品重量（商品コスト計算する際に利用すする）
+- メーカー価格（メーカーが販売している現地価格）
+- 為替レート（ユーザーが設定した為替レット）
+- 海外送料（管理者が提供している海外送料の運賃）
+- 販売送料（ユーザーが設定した国内送料）
+#### 上記合計が商品の仕入れ価格になる
+- 販売手数料（販売手数料を設定する）
+- 販売利益（販売価格-仕入れ価格-手数料）
+- 販売利益率（販売利益を〇〇％にすると目標値を設定する際に利用することができる）
+
+### 商品発注
+[![Image from Gyazo](https://i.gyazo.com/9ab3c7f001f09d67aec08b7a7f6ce05f.png)](https://gyazo.com/9ab3c7f001f09d67aec08b7a7f6ce05f)
+#### 商品を発注する際に商品一覧ページから発注を行う
+- 仕入商品購入ページを押すとメーカーの販売ページに遷移する
+
+### 新規発注
+[![Image from Gyazo](https://i.gyazo.com/8a7019fbd5e72bdae088dbaa6af82b4b.png)](https://gyazo.com/8a7019fbd5e72bdae088dbaa6af82b4b)
+#### ユーザーが発注した全ての個別の発注が表示される
+[![Image from Gyazo](https://i.gyazo.com/8a7019fbd5e72bdae088dbaa6af82b4b.png)](https://gyazo.com/8a7019fbd5e72bdae088dbaa6af82b4b)
+
+### 追跡番号登録
+[![Image from Gyazo](https://i.gyazo.com/990f375b533824cec8935610d3e804aa.gif)](https://gyazo.com/990f375b533824cec8935610d3e804aa)
+#### 発注した貨物が倉庫に到着しているかを確認するため、追跡番号を登録を行う
+
+### 管理者側
+[![Image from Gyazo](https://i.gyazo.com/3ad3000f0535b15c58c7bd2f157ae28d.gif)](https://gyazo.com/3ad3000f0535b15c58c7bd2f157ae28d)
+#### ユーザーが登録した発注は管理者側の新規貨物一覧に表示される
+
+### 管理者側ー追跡番号登録（倉庫側）
+[![Image from Gyazo](https://i.gyazo.com/ab51c87aade8b09a3b5bb4a957e94f2a.gif)](https://gyazo.com/ab51c87aade8b09a3b5bb4a957e94f2a)
+####　倉庫側では、届いている貨物の追跡番号と貨物の重量を登録する
+
+### ユーザーへのお知らせ
+[![Image from Gyazo](https://i.gyazo.com/8da8b74967cf569a32bb88c911e76aab.gif)](https://gyazo.com/8da8b74967cf569a32bb88c911e76aab)
+#### ユーザーが登録した追跡番号と倉庫で登録している追跡番号が一致すれば、管理者側でユーザーが送った貨物の重量を紐つけて、ユーザー側に貨物が到着しているのを教えらせる
+
+### ユーザー側発送依頼をかける
+[![Image from Gyazo](https://i.gyazo.com/b1aa478b4fff3d887266007b3d68dab9.gif)](https://gyazo.com/b1aa478b4fff3d887266007b3d68dab9)
+####　管理者側で処理した発注は、ユーザー側の「倉庫に到着している貨物リスト」ページに表示されている
+#### ユーザーは自身で貨物を選んで発送依頼をする
+
+### 送料を支払う
+
+
 
 # 工夫したポイント
 - コストと利益の計算
@@ -68,6 +143,8 @@ OIEM_app (Order Invoice Easy Management)
 - has_many :kaigai_order_cansels
 - has_many :kaigai_order_pays
 - has_many :invoices
+- has_many :transportation_expense
+- has_many :exchange_rate_set
 
 ## items
 |Column                     |Type       |Options           |
@@ -245,3 +322,21 @@ OIEM_app (Order Invoice Easy Management)
 |order                        |references |foreign_key: true |
 ### Association
 - belongs_to :order
+
+## exchange_rate_set
+|Column                       |Type       |Options           |
+|-----------------------------|-----------|------------------|
+|exchange_country_id          |integer    |null: false       |
+|rate                         |string     |null: false       |
+|user                         |references |foreign_key: true |
+### Association
+- belongs_to :user
+
+## transportation_expense
+|Column                       |Type       |Options           |
+|-----------------------------|-----------|------------------|
+|name                         |string     |null: false       |
+|price                        |integer    |null: false       |
+|user                         |references |foreign_key: true |
+### Association
+- belongs_to :user
