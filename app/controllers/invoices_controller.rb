@@ -46,7 +46,7 @@ class InvoicesController < ApplicationController
 
   def move_to_kaigai_invoice_show
     @invoice = Invoice.find(params[:id])
-      if current_user.id == 1
+      if current_user.id == 4
       else
         if current_user.id != @invoice.user_id
           redirect_to user_path(current_user.id)

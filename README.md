@@ -111,7 +111,11 @@ OIEM_app (Order Invoice Easy Management)
 #### ユーザーは自身で貨物を選んで発送依頼をする
 
 ### 送料を支払う
+[![Image from Gyazo](https://i.gyazo.com/97d271ab63f0f90f9df7d9e3dc996c57.gif)](https://gyazo.com/97d271ab63f0f90f9df7d9e3dc996c57)
 
+### インボイスを作成する
+[![Image from Gyazo](https://i.gyazo.com/f0bbe913f42409c48bb4ae036c9b9d7e.gif)](https://gyazo.com/f0bbe913f42409c48bb4ae036c9b9d7e)
+#### ユーザーが側でインボイスを作成する
 
 
 # 工夫したポイント
