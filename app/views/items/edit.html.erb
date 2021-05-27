@@ -110,7 +110,16 @@
           <span>
             <span id='add-tax-price'></span>
           </span>
-            <%= f.collection_select(:ratehoge, ExchangeRate.all, :rate, :exchange, {class:"select-box", id:"item-exchange-rate"}) %>
+            <% if current_user.exchange_rate_sets.present? %>
+              <select id="item-exchange-rate">
+                <option value=0>---</option>
+                <% current_user.exchange_rate_sets.each do |exchange_rate_set| %>
+                  <option value=<%=exchange_rate_set.rate %>><%= exchange_rate_set.exchange_country.country %></option>
+                <% end %>
+              </select>
+            <% else %>
+              <%= link_to "レートを登録していません", new_exchange_rate_set_path %>
+            <% end %>
         </div>
 
         <div class="price-content">
@@ -126,7 +135,7 @@
           <span>
             <span id='add-tax-price'></span>
           </span>
-          <%= f.collection_select(:domestichoge, DomesticFeed.all, :price, :name, {class:"select-box", id:"item-domestic-feed"}) %>
+          <%= f.collection_select(:domestichoge, current_user.transportation_expenses, :price, :name, {include_blank: "---"}, {id:"item-domestic-feed"}) %>
         </div>
 
         <div class="price-content">
