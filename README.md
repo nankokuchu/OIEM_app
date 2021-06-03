@@ -99,7 +99,7 @@ OIEM_app (Order Invoice Easy Management)
 
 ### 管理者側ー追跡番号登録（倉庫側）
 [![Image from Gyazo](https://i.gyazo.com/ab51c87aade8b09a3b5bb4a957e94f2a.gif)](https://gyazo.com/ab51c87aade8b09a3b5bb4a957e94f2a)
-####　倉庫側では、届いている貨物の追跡番号と貨物の重量を登録する
+#### 倉庫側では、届いている貨物の追跡番号と貨物の重量を登録する
 
 ### ユーザーへのお知らせ
 [![Image from Gyazo](https://i.gyazo.com/8da8b74967cf569a32bb88c911e76aab.gif)](https://gyazo.com/8da8b74967cf569a32bb88c911e76aab)
@@ -107,7 +107,7 @@ OIEM_app (Order Invoice Easy Management)
 
 ### ユーザー側発送依頼をかける
 [![Image from Gyazo](https://i.gyazo.com/b1aa478b4fff3d887266007b3d68dab9.gif)](https://gyazo.com/b1aa478b4fff3d887266007b3d68dab9)
-####　管理者側で処理した発注は、ユーザー側の「倉庫に到着している貨物リスト」ページに表示されている
+#### 管理者側で処理した発注は、ユーザー側の「倉庫に到着している貨物リスト」ページに表示されている
 #### ユーザーは自身で貨物を選んで発送依頼をする
 
 ### 送料を支払う
@@ -245,7 +245,7 @@ OIEM_app (Order Invoice Easy Management)
 |kaigai_order_price           |integer    |null: false       |
 |user                         |references |foreign_key: true |
 ### Association
--　belongs_to :user
+- belongs_to :user
 - has_one :invoice
 - has_one :kaigai_tracking
 - has_one :kaigai_order_over
